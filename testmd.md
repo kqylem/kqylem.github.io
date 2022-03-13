@@ -1,29 +1,22 @@
- ##### Definition of Linear Dependence (pg. 36)
-A subset $S$ of a [[Vector Space]] $V$ is called __linearly dependent__ if there exist a finite number of distinct vectors $u_{1},u_{2}, ..., u_{n} \in S$ and scalars $a_{1},a_{2}, ...,a_{n}$ not all zero such that:
-$$ a_{1}u_{1}+a_{2}u_{2} + \cdots + a_{n}u_{n} = v$$
-In this case, we say that the vectors in $S$ are linearly dependent. 
-
------
-###### Definition of Linear Independence (pg. 37)
-A subset $S$ of a vector space $V$ is __linearly independent__ if it is not linearly dependent. As before, we say that the vectors of $S$ are linearly independent. 
-
-*Important facts about linearly independent sets:*
-1. the empty set is a linearly independent set because a linearly dependent set must be non-empty. 
-2. a set consisting of one non-zero vector is linearly independent. 
-3. a set is linearly independent if the zero vector can only be expressed by the trivial solution, i.e. the only representations of 0 via linear combinations is the trivial solution. (all coefficients of the lin comb are zero)
-
----
-#### Theorem 1.6 (pg. 39)
-Let $V$ be a vector space, and let $S_{1}\subseteq S_{2} \subseteq V$. Then if $S_{1}$ is linearly dependent, $S_{2}$ must be linearly dependent.
-
-###### Corollary 
-Let $V$ be a vector space, and let $S_{1}\subseteq S_{2} \subseteq V$. Then if $S_{2}$ is linearly independent, $S_{1}$ must be linearly independent. 
-
-$$ x+y \mathbb{F} $$
-------
-### Theorem 1.7 (pg. 39)
-Let $S$ be a linearly independent subset of a vector space $V$, and let $v$ be a vector in $V$ but not in $S$. Then, $S \cup \{v\}$ is linearly dependent iff $v \in span(S)$.
-
+<!DOCTYPE html>
+<!-- KaTeX requires the use of the HTML5 doctype. Without it, KaTeX may not render properly -->
 <html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css" integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+  </head>
+  ...
+ 
+ \f\relax{x} = \int_{-\infty}^\infty
+    \f\hat\xi\,e^{2 \pi i \xi x}
+    \,d\xi
+
+
 <a href="index.html">Home</a>
 </html>
