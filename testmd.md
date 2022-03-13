@@ -19,9 +19,11 @@ Let $V$ be a vector space, and let $S_{1}\subseteq S_{2} \subseteq V$. Then if $
 ###### Corollary 
 Let $V$ be a vector space, and let $S_{1}\subseteq S_{2} \subseteq V$. Then if $S_{2}$ is linearly independent, $S_{1}$ must be linearly independent. 
 
-
+$$ x+y \mathbb{F} $$
 ------
 ### Theorem 1.7 (pg. 39)
 Let $S$ be a linearly independent subset of a vector space $V$, and let $v$ be a vector in $V$ but not in $S$. Then, $S \cup \{v\}$ is linearly dependent iff $v \in span(S)$.
 
+<html>
 <a href="index.html">Home</a>
+</html>
