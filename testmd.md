@@ -24,3 +24,4 @@ Let $V$ be a vector space, and let $S_{1}\subseteq S_{2} \subseteq V$. Then if $
 ### Theorem 1.7 (pg. 39)
 Let $S$ be a linearly independent subset of a vector space $V$, and let $v$ be a vector in $V$ but not in $S$. Then, $S \cup \{v\}$ is linearly dependent iff $v \in span(S)$.
 
+<a href="index.html">Home</a>
