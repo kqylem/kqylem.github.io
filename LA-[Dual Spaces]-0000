@@ -1,0 +1,55 @@
+
+<html>
+    <body>
+    
+    <HEAD>
+    <TITLE> Dual Spaces </TITLE>
+      
+     <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+      
+      <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+      
+      <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ 
+          TeX: { 
+            extensions: ["amsthm.js", "AMSmath.js","AMSsymbols.js", "autobold.js"],
+          }
+        });
+    </script>
+      
+    </HEAD>
+    
+    <h3> Dual Spaces - Introduction and Theory</h3>
+    <hr>
+      
+      <b>Theorem 1.23</b>: If we let this $x\implies y$ and then that
+      <br>
+      <br>
+      Then we see
+    <hr>
+    
+
+
+
+
+
+
+    
+    <center>
+    <h5><a href="index.html">Back to homepage</a></h5>
+    </center>
+    </body>
+
+    </html>
+    
