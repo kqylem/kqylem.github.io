@@ -11,7 +11,6 @@ body {
   color: black;
   line-height: 1.6;
   padding: 20px;
-  /* Removed the padding-top to eliminate the large gap */
 }
 
 /* Header styles */
@@ -89,18 +88,19 @@ header nav a:hover {
   margin-bottom: 10px;
 }
 
-.project-details p {
-  font-size: 1.1em;
-  margin: 5px 0;
-}
-
 .project-details a {
   color: #0000FF;
   text-decoration: none;
+  margin-bottom: 10px; /* Space between link and description */
 }
 
 .project-details a:hover {
   text-decoration: underline;
+}
+
+.project-details p {
+  font-size: 1.1em;
+  margin: 5px 0;
 }
 
 /* Footer styles */
