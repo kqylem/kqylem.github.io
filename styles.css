@@ -6,66 +6,39 @@
 
 /* Body styles */
 body {
-  font-family: "Times New Roman", serif; /* Set font to Times New Roman */
+  font-family: "Times New Roman", serif;
   background-color: white;
   color: black;
-  line-height: 1.6; /* Better readability */
-  padding: 20px; /* Add padding to avoid text touching the edge */
-  padding-top: 100px; /* Add padding to the top to prevent content from hiding under the header */
+  line-height: 1.6;
+  padding: 20px;
+  padding-top: 100px; /* Add space for the header */
 }
 
 /* Header styles */
 header {
-  background-color: #4C4E52; /* darker gray for the header */
+  background-color: #4C4E52;
   text-align: center;
-  padding: 20px 0;  /* Add padding to the top and bottom of the header */
-  margin: 0; /* Remove default margin */
-  width: 100%; /* Ensure the header spans the full width */
-  position: absolute; /* Position it at the top of the page */
+  padding: 20px 0;
+  margin: 0;
+  width: 100%;
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: 1000; /* Ensure the header stays above other content */
+  z-index: 1000;
 }
 
-/* Change text color to white inside the header */
 header h1 {
   font-size: 2em;
-  color: white; /* White text color */
+  color: white;
 }
 
-/* Change text color to white for any links inside the header */
 header nav a {
-  color: white; /* White links */
+  color: white;
 }
 
-header nav a:hover {
-  text-decoration: underline;
-}
-
-/* Navigation styles */
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-nav ul li {
-  display: inline-block;
-  margin: 0 15px;
-}
-
-nav a {
-  color: black;
-  text-decoration: none;
-  font-size: 1.1em;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* Main content area */
+/* Project section styles */
 #projects {
-  padding-left: 20px; /* Add indentation on the left */
+  padding-left: 20px;
 }
 
 #projects h2 {
@@ -73,28 +46,44 @@ nav a:hover {
   margin-bottom: 20px;
 }
 
-.project {
-  margin-bottom: 30px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #000; /* Thin line separating projects */
+/* Project list styles */
+.project-list {
+  list-style-type: none;
 }
 
-.project h3 {
+.project {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #000;
+}
+
+.project-preview {
+  margin-right: 20px;
+}
+
+.project-preview iframe {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.project-details h3 {
   font-size: 1.5em;
   margin-bottom: 10px;
 }
 
-.project p {
+.project-details p {
   font-size: 1.1em;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
-.project a {
-  color: #0000FF; /* Blue links */
+.project-details a {
+  color: #0000FF;
   text-decoration: none;
 }
 
-.project a:hover {
+.project-details a:hover {
   text-decoration: underline;
 }
 
@@ -104,6 +93,6 @@ footer {
   margin-top: 20px;
   font-size: 0.9em;
   margin-bottom: 20px;
-  background-color: #F4F4F4; /* Off-white background color for the footer */
+  background-color: #F4F4F4;
   padding: 10px 0;
 }
