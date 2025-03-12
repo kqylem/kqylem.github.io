@@ -6,15 +6,16 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Times New Roman", serif;
     background-color: #f4f4f4;
     color: #000;
     line-height: 1.6;
+    font-size: 0.9rem; /* Smaller font size for the body */
     margin: 0;
 }
 
 header {
-    background-color: #fff;
+    background-color: #333; /* Dark gray background */
     padding: 10px 0;
     text-align: center;
     border-bottom: 2px solid #ddd;
@@ -22,6 +23,7 @@ header {
 
 header h1 {
     font-size: 2.5rem;
+    color: #fff; /* White text */
     margin-bottom: 10px;
 }
 
@@ -37,8 +39,8 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    font-size: 1.2rem;
-    color: #000;
+    font-size: 1rem;
+    color: #fff; /* White text for the links */
     padding: 5px 10px;
     border: 1px solid transparent;
     transition: all 0.3s;
@@ -47,6 +49,7 @@ nav ul li a {
 nav ul li a:hover {
     background-color: #f0f0f0;
     border-color: #ccc;
+    color: #333; /* Change text color on hover */
 }
 
 main {
@@ -60,7 +63,7 @@ section {
 }
 
 section h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 15px;
 }
 
