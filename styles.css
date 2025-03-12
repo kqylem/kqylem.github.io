@@ -13,17 +13,34 @@ body {
   padding: 20px; /* Add padding to avoid text touching the edge */
 }
 
+/* Header styles */
 header {
-  background-color: #D3D3D3; /* Lighter gray for the header */
+  background-color: #4C4E52; /* darker gray for the header */
   text-align: center;
-  padding: 30px 0; /* Increased padding to make the header box larger */
-  margin-bottom: 20px;
+  padding: 20px 0;  /* Add padding to the top and bottom of the header */
+  margin: 0; /* Remove default margin */
+  width: 100%; /* Ensure the header spans the full width */
+  position: absolute; /* Position it at the top of the page */
+  top: 0;
+  left: 0;
 }
 
-h1 {
+/* Change text color to white inside the header */
+header h1 {
   font-size: 2em;
+  color: white; /* White text color */
 }
 
+/* Change text color to white for any links inside the header */
+header nav a {
+  color: white; /* White links */
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Navigation styles */
 nav ul {
   list-style-type: none;
   padding: 0;
@@ -79,6 +96,7 @@ nav a:hover {
   text-decoration: underline;
 }
 
+/* Footer styles */
 footer {
   text-align: center;
   margin-top: 20px;
@@ -87,4 +105,3 @@ footer {
   background-color: #F4F4F4; /* Off-white background color for the footer */
   padding: 10px 0;
 }
-
