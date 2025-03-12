@@ -11,6 +11,7 @@ body {
   color: black;
   line-height: 1.6; /* Better readability */
   padding: 20px; /* Add padding to avoid text touching the edge */
+  padding-top: 100px; /* Add padding to the top to prevent content from hiding under the header */
 }
 
 /* Header styles */
@@ -23,6 +24,7 @@ header {
   position: absolute; /* Position it at the top of the page */
   top: 0;
   left: 0;
+  z-index: 1000; /* Ensure the header stays above other content */
 }
 
 /* Change text color to white inside the header */
