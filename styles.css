@@ -4,17 +4,20 @@
   box-sizing: border-box;
 }
 
+/* Body styles */
 body {
-  font-family: "Courier New", monospace;
+  font-family: "Times New Roman", serif; /* Set font to Times New Roman */
   background-color: white;
   color: black;
+  line-height: 1.6; /* Better readability */
+  padding: 20px; /* Add padding to avoid text touching the edge */
 }
 
 header {
-  background-color: black;
-  color: white;
-  padding: 10px;
+  background-color: #D3D3D3; /* Lighter gray for the header */
   text-align: center;
+  padding: 30px 0; /* Increased padding to make the header box larger */
+  margin-bottom: 20px;
 }
 
 h1 {
@@ -32,7 +35,7 @@ nav ul li {
 }
 
 nav a {
-  color: white;
+  color: black;
   text-decoration: none;
   font-size: 1.1em;
 }
@@ -41,13 +44,47 @@ nav a:hover {
   text-decoration: underline;
 }
 
-#home {
-  padding: 20px;
-  text-align: center;
+/* Main content area */
+#projects {
+  padding-left: 20px; /* Add indentation on the left */
+}
+
+#projects h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.project {
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #000; /* Thin line separating projects */
+}
+
+.project h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.project p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+
+.project a {
+  color: #0000FF; /* Blue links */
+  text-decoration: none;
+}
+
+.project a:hover {
+  text-decoration: underline;
 }
 
 footer {
   text-align: center;
   margin-top: 20px;
   font-size: 0.9em;
+  margin-bottom: 20px;
+  background-color: #F4F4F4; /* Off-white background color for the footer */
+  padding: 10px 0;
 }
+
