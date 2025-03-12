@@ -7,7 +7,7 @@
 /* Body styles */
 body {
   font-family: "Times New Roman", serif;
-  background-color: white;
+  background-color: #F5F5F5;
   color: black;
   line-height: 1.6;
   padding: 20px;
@@ -29,11 +29,11 @@ header {
 
 header h1 {
   font-size: 2em;
-  color: white;
+  color: #F5F5F5;
 }
 
 header nav a {
-  color: white;
+  color: #F5F5F5;
 }
 
 /* Project section styles */
