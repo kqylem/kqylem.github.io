@@ -1,109 +1,74 @@
+/* Basic reset */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Body styles */
 body {
-  font-family: "Times New Roman", serif;
-  background-color: white;
-  color: black;
-  line-height: 1.6;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #000;
+    line-height: 1.6;
+    margin: 0;
 }
 
-/* Header styles */
 header {
-  background-color: #4C4E52; /* Darker gray for the header */
-  text-align: center;
-  
+    background-color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
 }
 
 header h1 {
-  font-size: 2em;
-  color: white; /* White text color */
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }
 
-header nav ul {
-  list-style-type: none;
-  padding: 0;
-  display: flex; /* Display navigation links in a row */
-  justify-content: center; /* Center the navigation */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
 }
 
-header nav ul li {
-  margin: 0 15px;
+nav ul li {
+    margin: 0 15px;
 }
 
-header nav a {
-  color: white; /* White links */
-  text-decoration: none;
-  font-size: 1.1em;
+nav ul li a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #000;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    transition: all 0.3s;
 }
 
-header nav a:hover {
-  text-decoration: underline;
+nav ul li a:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
 }
 
-/* Project section styles */
-#projects {
-  padding-left: 20px;
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
 }
 
-#projects h2 {
-  font-size: 2em;
-  margin-bottom: 20px;
+section {
+    margin-bottom: 30px;
 }
 
-/* Project list styles */
-.project-list {
-  list-style-type: none;
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
 }
 
-.project {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #000;
-}
-
-.project-preview {
-  margin-right: 20px;
-}
-
-.project-preview iframe {
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.project-details h3 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-.project-details a {
-  color: #0000FF;
-  text-decoration: none;
-  margin-bottom: 10px; /* Space between link and description */
-}
-
-.project-details a:hover {
-  text-decoration: underline;
-}
-
-.project-details p {
-  font-size: 1.1em;
-  margin: 5px 0;
-}
-
-/* Footer styles */
 footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 0.9em;
-  margin-bottom: 20px;
-  background-color: #F4F4F4;
-  padding: 10px 0;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #fff;
+    border-top: 2px solid #ddd;
+    font-size: 0.9rem;
+    color: #777;
 }
