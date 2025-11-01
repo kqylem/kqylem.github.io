@@ -52,6 +52,7 @@
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
+                        <li><a href="edit.html" class="nav-link">Edit</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -62,16 +63,11 @@
                 </div>
 
                 <div class="content-section">
-                    <div class="section-content">
-                        <p>This is the Poetry section. Here you can find various poems and poetic works.</p>
-                        
-                        <h3>Poetry Collection</h3>
-                        <p>Poems will be displayed here...</p>
-                        
-                        <h3>PDFs</h3>
-                        <div id="poetry-pdfs-container">
-                            <p>Loading PDFs...</p>
-                        </div>
+                    <div class="section-content" id="section-content">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                    <div id="poetry-pdfs-container">
+                        <p>Loading PDFs...</p>
                     </div>
                 </div>
             </main>
@@ -79,6 +75,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="section-loader.js"></script>
     <script>
         async function loadPoetryPDFs() {
             const container = document.getElementById('poetry-pdfs-container');

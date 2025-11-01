@@ -9,8 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFontToggle();
     initializeDarkMode();
     initializeSearch();
-    initializeBlogAuth();
-    initializeBlogPosts();
+    initializeBlogPosts(); // Only load posts, not create form
     setActiveNavLink();
 });
 
@@ -89,89 +88,7 @@ function initializeDarkMode() {
     });
 }
 
-// Blog Author Authentication
-function initializeBlogAuth() {
-    const blogAuth = document.getElementById('blog-auth');
-    const blogFormContainer = document.getElementById('blog-form-container');
-    
-    if (!blogAuth || !blogFormContainer) return;
-
-    // Check if already authenticated
-    const hasAccess = sessionStorage.getItem(BLOG_AUTH_STORAGE_KEY) === 'true';
-    
-    if (hasAccess) {
-        blogAuth.style.display = 'none';
-        blogFormContainer.style.display = 'block';
-    } else {
-        blogAuth.style.display = 'block';
-        blogFormContainer.style.display = 'none';
-        
-        const passwordInput = document.getElementById('blog-password-input');
-        const passwordSubmit = document.getElementById('blog-password-submit');
-        const passwordError = document.getElementById('blog-password-error');
-        const blogLogout = document.getElementById('blog-logout');
-        
-        if (passwordSubmit && passwordInput) {
-            function checkPassword() {
-                const enteredPassword = passwordInput.value.trim();
-                
-                if (enteredPassword === BLOG_AUTHOR_PASSWORD) {
-                    sessionStorage.setItem(BLOG_AUTH_STORAGE_KEY, 'true');
-                    blogAuth.style.display = 'none';
-                    blogFormContainer.style.display = 'block';
-                    if (passwordError) passwordError.textContent = '';
-                    passwordInput.value = '';
-                } else {
-                    if (passwordError) {
-                        passwordError.textContent = 'Incorrect password. Please try again.';
-                    }
-                    passwordInput.value = '';
-                    passwordInput.focus();
-                }
-            }
-
-            passwordSubmit.addEventListener('click', checkPassword);
-            passwordInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    checkPassword();
-                }
-            });
-            passwordInput.focus();
-        }
-        
-        // Logout button
-        if (blogLogout) {
-            blogLogout.addEventListener('click', function() {
-                sessionStorage.removeItem(BLOG_AUTH_STORAGE_KEY);
-                blogAuth.style.display = 'block';
-                blogFormContainer.style.display = 'none';
-            });
-        }
-    }
-    
-    // Export posts button
-    const exportBtn = document.getElementById('export-posts');
-    const exportResult = document.getElementById('export-result');
-    const exportJson = document.getElementById('export-json');
-    
-    if (exportBtn && exportResult && exportJson) {
-        exportBtn.addEventListener('click', function() {
-            const localPosts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
-            
-            if (localPosts.length === 0) {
-                alert('No local posts to export. Create some posts first!');
-                return;
-            }
-            
-            // Format JSON nicely
-            const jsonString = JSON.stringify(localPosts, null, 2);
-            exportJson.value = jsonString;
-            exportResult.style.display = 'block';
-            exportJson.focus();
-            exportJson.select();
-        });
-    }
-}
+// Blog Author Authentication - moved to edit section
 
 // Blog Post Management
 function initializeBlogPosts() {

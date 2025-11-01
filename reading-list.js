@@ -15,7 +15,7 @@ const TAG_COLORS = {
     'humorous': '#FFD700',  // Gold
     'whimsical': '#FFA07A', // Light salmon
     'dense': '#708090',     // Slate gray
-    'loaded': '#9370DB',    // Medium purple
+    'loaded': '#4169E1',    // Royal blue (changed from purple)
     'arcane': '#8B4513',    // Saddle brown
     'esoteric': '#4B0082'   // Indigo
 };

@@ -619,6 +619,58 @@ body.dark-mode .form-group input[type="date"] {
     border-color: var(--border-color);
 }
 
+/* Edit Section Styles */
+.edit-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+.edit-tab {
+    padding: 8px 15px;
+    border: 2px outset #d0d0d0;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+}
+
+.edit-tab:hover {
+    background-color: #e8e8e8;
+}
+
+.edit-tab.active {
+    background-color: #e0e0e0;
+    border: 2px inset #d0d0d0;
+    border-bottom: none;
+}
+
+body.dark-mode .edit-tab {
+    background-color: #333333;
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+body.dark-mode .edit-tab:hover {
+    background-color: #3a3a3a;
+}
+
+body.dark-mode .edit-tab.active {
+    background-color: #2a2a2a;
+}
+
+.edit-tab-content {
+    display: none;
+}
+
+.edit-tab-content.active {
+    display: block;
+}
+
 /* Password Protection */
 .password-form {
     background-color: var(--sidebar-bg);

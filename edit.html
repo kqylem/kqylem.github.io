@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit - Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- MathJax for LaTeX support -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">Personal Website</h1>
+                <div class="header-controls">
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search...">
+                        <button id="search-btn" class="search-btn">Go</button>
+                    </div>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="bios-font-toggle">
+                        IBM BIOS Font
+                    </label>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        Dark Mode
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="notes.html" class="nav-link">Notes</a></li>
+                        <li><a href="writing.html" class="nav-link">Writing</a></li>
+                        <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="reading-list.html" class="nav-link">Reading List</a></li>
+                        <li><a href="resume.html" class="nav-link">Resume</a></li>
+                        <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
+                        <li><a href="game.html" class="nav-link">Game</a></li>
+                        <li><a href="edit.html" class="nav-link active">Edit</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <div id="edit-auth">
+                    <div class="password-form">
+                        <h2>Author Access Required</h2>
+                        <p>You need author access to edit the website.</p>
+                        <input type="password" id="edit-password-input" class="password-input" placeholder="Enter author password">
+                        <button id="edit-password-submit" class="password-submit">Submit</button>
+                        <div id="edit-password-error" class="error-message"></div>
+                    </div>
+                </div>
+
+                <div id="edit-content" style="display: none;">
+                    <div class="page-header">
+                        <h2>Edit Website</h2>
+                    </div>
+
+                    <!-- Tabs for different edit areas -->
+                    <div class="edit-tabs">
+                        <button class="edit-tab active" data-tab="blog">Blog Posts</button>
+                        <button class="edit-tab" data-tab="pdfs">PDFs</button>
+                        <button class="edit-tab" data-tab="sections">Section Content</button>
+                        <button class="edit-tab" data-tab="new-section">New Section</button>
+                    </div>
+
+                    <!-- Blog Posts Tab -->
+                    <div id="edit-blog" class="edit-tab-content active">
+                        <div class="blog-form-container">
+                            <h3>Create New Blog Post</h3>
+                            <form id="blog-post-form" class="blog-form">
+                                <div class="form-group">
+                                    <label for="post-title">Title:</label>
+                                    <input type="text" id="post-title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="post-image">Image URL:</label>
+                                    <input type="url" id="post-image" placeholder="https://example.com/image.jpg">
+                                </div>
+                                <div class="form-group">
+                                    <label for="post-content">Content:</label>
+                                    <textarea id="post-content" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">Publish Post (Local)</button>
+                                <button type="button" id="blog-export" class="submit-btn" style="margin-left: 10px; background-color: #ccffcc;">Export for GitHub</button>
+                            </form>
+                            <div id="blog-export-result" style="margin-top: 15px; padding: 10px; background-color: #f0f0f0; border: 1px solid var(--border-color); display: none;">
+                                <h4>Copy this JSON to blog-posts.json:</h4>
+                                <textarea id="blog-export-json" style="width: 100%; height: 200px; font-family: monospace; font-size: 12px;" readonly></textarea>
+                                <p style="font-size: 12px; margin-top: 10px; color: #666;">
+                                    1. Copy the JSON above<br>
+                                    2. Open blog-posts.json in your repository<br>
+                                    3. Replace its contents with this JSON<br>
+                                    4. Commit and push to GitHub<br>
+                                    5. Everyone will see your posts!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PDFs Tab -->
+                    <div id="edit-pdfs" class="edit-tab-content">
+                        <div class="blog-form-container">
+                            <h3>Add New PDF</h3>
+                            <form id="pdf-form" class="blog-form">
+                                <div class="form-group">
+                                    <label for="pdf-title">Title:</label>
+                                    <input type="text" id="pdf-title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pdf-section">Section/Category:</label>
+                                    <select id="pdf-section" required>
+                                        <option value="">Select a section...</option>
+                                        <option value="Notes">Notes</option>
+                                        <option value="Writing">Writing</option>
+                                        <option value="Poetry">Poetry</option>
+                                        <option value="About">About</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pdf-description">Description (optional):</label>
+                                    <textarea id="pdf-description" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Add PDF by:</label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="pdf-source" value="url" checked>
+                                            URL
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="pdf-source" value="upload">
+                                            File Upload
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="url-input-group">
+                                    <label for="pdf-url">PDF URL:</label>
+                                    <input type="url" id="pdf-url" placeholder="https://example.com/document.pdf">
+                                </div>
+                                <div class="form-group" id="file-input-group" style="display: none;">
+                                    <label for="pdf-file">PDF File:</label>
+                                    <input type="file" id="pdf-file" accept=".pdf">
+                                    <div class="file-info" id="file-info"></div>
+                                </div>
+                                <button type="submit" class="submit-btn">Add PDF (Local)</button>
+                                <button type="button" id="pdf-export" class="submit-btn" style="margin-left: 10px; background-color: #ccffcc;">Export for GitHub</button>
+                            </form>
+                            <div id="pdf-export-result" style="margin-top: 15px; padding: 10px; background-color: #f0f0f0; border: 1px solid var(--border-color); display: none;">
+                                <h4>Copy this JSON to pdfs.json:</h4>
+                                <textarea id="pdf-export-json" style="width: 100%; height: 200px; font-family: monospace; font-size: 12px;" readonly></textarea>
+                                <p style="font-size: 12px; margin-top: 10px; color: #666;">
+                                    1. Copy the JSON above<br>
+                                    2. Open pdfs.json in your repository<br>
+                                    3. Replace its contents with this JSON<br>
+                                    4. Commit and push to GitHub<br>
+                                    5. Everyone will see your PDFs!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Content Tab -->
+                    <div id="edit-sections" class="edit-tab-content">
+                        <div class="blog-form-container">
+                            <h3>Edit Section Content</h3>
+                            <div class="form-group">
+                                <label for="section-select">Select Section to Edit:</label>
+                                <select id="section-select">
+                                    <option value="">Choose a section...</option>
+                                    <option value="Notes">Notes</option>
+                                    <option value="Writing">Writing</option>
+                                    <option value="Poetry">Poetry</option>
+                                    <option value="About">About</option>
+                                    <option value="Home">Home</option>
+                                    <option value="Game">Game</option>
+                                </select>
+                            </div>
+                            <div id="section-editor" style="display: none;">
+                                <div class="form-group">
+                                    <label>Section Content:</label>
+                                    <textarea id="section-content-text" rows="15" style="font-family: monospace; font-size: 12px;"></textarea>
+                                    <small style="font-size: 11px; color: #666;">
+                                        Format: Each paragraph on a new line. Headings use ===Heading=== or ###Heading###. Bullets use - item. Save will update the section.
+                                    </small>
+                                </div>
+                                <button type="button" id="save-section" class="submit-btn">Save Section</button>
+                                <button type="button" id="section-export" class="submit-btn" style="margin-left: 10px; background-color: #ccffcc;">Export for GitHub</button>
+                            </div>
+                            <div id="section-export-result" style="margin-top: 15px; padding: 10px; background-color: #f0f0f0; border: 1px solid var(--border-color); display: none;">
+                                <h4>Copy this JSON to section-content.json:</h4>
+                                <textarea id="section-export-json" style="width: 100%; height: 200px; font-family: monospace; font-size: 12px;" readonly></textarea>
+                                <p style="font-size: 12px; margin-top: 10px; color: #666;">
+                                    1. Copy the JSON above<br>
+                                    2. Open section-content.json in your repository<br>
+                                    3. Replace its contents with this JSON<br>
+                                    4. Commit and push to GitHub<br>
+                                    5. Everyone will see your updates!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Section Tab -->
+                    <div id="edit-new-section" class="edit-tab-content">
+                        <div class="blog-form-container">
+                            <h3>Create New Section</h3>
+                            <form id="new-section-form" class="blog-form">
+                                <div class="form-group">
+                                    <label for="new-section-name">Section Name:</label>
+                                    <input type="text" id="new-section-name" placeholder="e.g., Projects" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-section-url">URL (filename):</label>
+                                    <input type="text" id="new-section-url" placeholder="e.g., projects.html" required>
+                                    <small style="font-size: 11px; color: #666;">Must end with .html</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-section-content">Initial Content:</label>
+                                    <textarea id="new-section-content" rows="10" placeholder="Enter initial content..."></textarea>
+                                </div>
+                                <button type="submit" class="submit-btn">Create Section</button>
+                            </form>
+                            <div id="new-section-result" style="margin-top: 15px; padding: 10px; background-color: #f0f0f0; border: 1px solid var(--border-color); display: none;">
+                                <h4>New Section Created!</h4>
+                                <p>You'll need to manually create the HTML file and add it to navigation. Use the exported content below.</p>
+                                <textarea id="new-section-html" style="width: 100%; height: 300px; font-family: monospace; font-size: 12px;" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="edit.js"></script>
+</body>
+</html>
+

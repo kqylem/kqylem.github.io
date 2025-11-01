@@ -52,6 +52,7 @@
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
+                        <li><a href="edit.html" class="nav-link">Edit</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -62,16 +63,11 @@
                 </div>
 
                 <div class="content-section">
-                    <div class="section-content">
-                        <p>This is the Writing section. Here you can find various writing pieces and articles.</p>
-                        
-                        <h3>Featured Writings</h3>
-                        <p>Writing pieces will be displayed here...</p>
-                        
-                        <h3>PDFs</h3>
-                        <div id="writing-pdfs-container">
-                            <p>Loading PDFs...</p>
-                        </div>
+                    <div class="section-content" id="section-content">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                    <div id="writing-pdfs-container">
+                        <p>Loading PDFs...</p>
                     </div>
                 </div>
             </main>
@@ -79,6 +75,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="section-loader.js"></script>
     <script>
         async function loadWritingPDFs() {
             const container = document.getElementById('writing-pdfs-container');

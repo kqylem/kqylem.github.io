@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Already authenticated
         passwordProtection.style.display = 'none';
         gameContent.style.display = 'block';
+        // Load section content
+        setTimeout(() => {
+            if (window.reloadSectionContent) {
+                window.reloadSectionContent();
+            }
+        }, 100);
     } else {
         // Show password form
         passwordProtection.style.display = 'block';
@@ -47,6 +53,11 @@ function initializePasswordForm() {
             if (passwordError) passwordError.textContent = '';
             
             passwordInput.value = '';
+            
+            // Load section content after authentication
+            if (window.reloadSectionContent) {
+                window.reloadSectionContent();
+            }
         } else {
             // Incorrect password
             if (passwordError) {

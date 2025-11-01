@@ -52,6 +52,7 @@
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="pdfs.html" class="nav-link active">PDFs</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
+                        <li><a href="edit.html" class="nav-link">Edit</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -61,76 +62,8 @@
                     <h2>PDFs</h2>
                 </div>
 
-                <!-- PDF Upload Form -->
-                <div id="pdf-auth">
-                    <div class="password-form">
-                        <h2>Author Access Required</h2>
-                        <p>You need author access to upload PDFs.</p>
-                        <input type="password" id="pdf-password-input" class="password-input" placeholder="Enter author password">
-                        <button id="pdf-password-submit" class="password-submit">Submit</button>
-                        <div id="pdf-password-error" class="error-message"></div>
-                    </div>
-                </div>
-
-                <div id="pdf-form-container" class="blog-form-container" style="display: none;">
-                    <h3>Add New PDF</h3>
-                    <form id="pdf-form" class="blog-form">
-                        <div class="form-group">
-                            <label for="pdf-title">Title:</label>
-                            <input type="text" id="pdf-title" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="pdf-section">Section/Category:</label>
-                            <select id="pdf-section" required>
-                                <option value="">Select a section...</option>
-                                <option value="Notes">Notes</option>
-                                <option value="Writing">Writing</option>
-                                <option value="Poetry">Poetry</option>
-                                <option value="About">About</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="pdf-description">Description (optional):</label>
-                            <textarea id="pdf-description" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Add PDF by:</label>
-                            <div class="radio-group">
-                                <label class="radio-label">
-                                    <input type="radio" name="pdf-source" value="url" checked>
-                                    URL
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="pdf-source" value="upload">
-                                    File Upload
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group" id="url-input-group">
-                            <label for="pdf-url">PDF URL:</label>
-                            <input type="url" id="pdf-url" placeholder="https://example.com/document.pdf">
-                        </div>
-                        <div class="form-group" id="file-input-group" style="display: none;">
-                            <label for="pdf-file">PDF File:</label>
-                            <input type="file" id="pdf-file" accept=".pdf">
-                            <div class="file-info" id="file-info"></div>
-                        </div>
-                        <button type="submit" class="submit-btn">Add PDF (Local)</button>
-                        <button type="button" id="pdf-export" class="submit-btn" style="margin-left: 10px; background-color: #ccffcc;">Export for GitHub</button>
-                        <button type="button" id="pdf-logout" class="submit-btn" style="margin-left: 10px; background-color: #ffcccc;">Logout</button>
-                    </form>
-                    <div id="pdf-export-result" style="margin-top: 15px; padding: 10px; background-color: #f0f0f0; border: 1px solid var(--border-color); display: none;">
-                        <h4>Copy this JSON to pdfs.json:</h4>
-                        <textarea id="pdf-export-json" style="width: 100%; height: 200px; font-family: monospace; font-size: 12px;" readonly></textarea>
-                        <p style="font-size: 12px; margin-top: 10px; color: #666;">
-                            1. Copy the JSON above<br>
-                            2. Open pdfs.json in your repository<br>
-                            3. Replace its contents with this JSON<br>
-                            4. Commit and push to GitHub<br>
-                            5. Everyone will see your PDFs!
-                        </p>
-                    </div>
+                <div class="content-section">
+                    <p>To upload PDFs, go to the <a href="edit.html">Edit</a> section.</p>
                 </div>
 
                 <!-- PDF List -->

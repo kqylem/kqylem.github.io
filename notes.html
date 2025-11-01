@@ -52,6 +52,7 @@
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
+                        <li><a href="edit.html" class="nav-link">Edit</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -62,26 +63,11 @@
                 </div>
 
                 <div class="content-section">
-                    <div class="section-content">
-                        <p>This is the Notes section. Here you can find various notes and thoughts.</p>
-                        
-                        <h3>Recent Notes</h3>
-                        <p>Notes will be displayed here...</p>
-                        
-                        <p>You can edit this section directly in the HTML file to add your own content, headings, and bullet points.</p>
-                        
-                        <h3>Examples of Content</h3>
-                        <ul>
-                            <li>You can use bullet points like this</li>
-                            <li>Each item gets a retro arrow bullet</li>
-                            <li>Perfect for organizing your thoughts</li>
-                        </ul>
-                        
-                        <h3>PDFs</h3>
-                        <p>Below are PDFs associated with this section. Each PDF includes a title, description, and link.</p>
-                        <div id="notes-pdfs-container">
-                            <p>Loading PDFs...</p>
-                        </div>
+                    <div class="section-content" id="section-content">
+                        <!-- Content will be loaded dynamically -->
+                    </div>
+                    <div id="notes-pdfs-container">
+                        <p>Loading PDFs...</p>
                     </div>
                 </div>
             </main>
@@ -89,6 +75,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="section-loader.js"></script>
     <script>
         // Load PDFs for Notes section
         async function loadNotesPDFs() {

@@ -4,8 +4,7 @@ const PDF_AUTHOR_PASSWORD = '1313';
 const PDF_AUTH_STORAGE_KEY = 'pdfAuthorAccess';
 
 document.addEventListener('DOMContentLoaded', function() {
-    initializePDFAuth();
-    initializePDFForm();
+    // PDF upload moved to edit section
     loadPDFs();
     initializeModal();
 });
