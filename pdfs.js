@@ -266,18 +266,19 @@ async function loadPDFs() {
     // Also load from localStorage (local PDFs)
     const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
     
-    // Combine both sources
-    allPDFs = [...localPDFs, ...allPDFs];
+    // Combine both sources (JSON first, then localStorage)
+    allPDFs = [...allPDFs, ...localPDFs];
     
-    // Remove duplicates based on ID
+    // Remove duplicates based on ID (prefer JSON file version over localStorage)
     const uniquePDFs = [];
     const seenIds = new Set();
-    allPDFs.forEach(pdf => {
-        if (!seenIds.has(pdf.id)) {
-            seenIds.add(pdf.id);
-            uniquePDFs.push(pdf);
+    // Process in reverse to prioritize JSON PDFs (they come first)
+    for (let i = allPDFs.length - 1; i >= 0; i--) {
+        if (!seenIds.has(allPDFs[i].id)) {
+            seenIds.add(allPDFs[i].id);
+            uniquePDFs.unshift(allPDFs[i]);
         }
-    });
+    }
     
     // Sort by ID (newest first)
     uniquePDFs.sort((a, b) => (b.id || 0) - (a.id || 0));
@@ -389,8 +390,19 @@ async function getPDFsBySection(sectionName) {
     
     // Load from localStorage
     const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
-    allPDFs = [...localPDFs, ...allPDFs];
+    allPDFs = [...allPDFs, ...localPDFs];
+    
+    // Remove duplicates based on ID (prefer JSON file version over localStorage)
+    const uniquePDFs = [];
+    const seenIds = new Set();
+    // Process in reverse to prioritize JSON PDFs (they come first)
+    for (let i = allPDFs.length - 1; i >= 0; i--) {
+        if (!seenIds.has(allPDFs[i].id)) {
+            seenIds.add(allPDFs[i].id);
+            uniquePDFs.unshift(allPDFs[i]);
+        }
+    }
     
     // Filter by section
-    return allPDFs.filter(pdf => pdf.section === sectionName);
+    return uniquePDFs.filter(pdf => pdf.section === sectionName);
 }

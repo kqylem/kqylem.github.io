@@ -97,8 +97,19 @@
                 const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
                 allPDFs = [...localPDFs, ...allPDFs];
                 
+                // Remove duplicates based on ID (prefer JSON file version over localStorage)
+                const uniquePDFs = [];
+                const seenIds = new Set();
+                // Process in reverse to prioritize JSON PDFs (they come first)
+                for (let i = allPDFs.length - 1; i >= 0; i--) {
+                    if (!seenIds.has(allPDFs[i].id)) {
+                        seenIds.add(allPDFs[i].id);
+                        uniquePDFs.unshift(allPDFs[i]);
+                    }
+                }
+                
                 // Filter by Notes section
-                const notesPDFs = allPDFs.filter(pdf => pdf.section === 'Notes');
+                const notesPDFs = uniquePDFs.filter(pdf => pdf.section === 'Notes');
                 
                 if (notesPDFs.length === 0) {
                     container.innerHTML = '<p>No PDFs in Notes section yet.</p>';

@@ -109,6 +109,7 @@ function initializeBlogEditor() {
         const titleInput = document.getElementById('post-title');
         const contentInput = document.getElementById('post-content');
         const imageInput = document.getElementById('post-image');
+        const dateInput = document.getElementById('post-date');
 
         if (!titleInput || !contentInput) {
             alert('Form fields not found. Please refresh the page.');
@@ -118,6 +119,7 @@ function initializeBlogEditor() {
         const title = (titleInput.value || '').trim();
         const content = (contentInput.value || '').trim();
         const imageUrl = (imageInput && imageInput.value) ? imageInput.value.trim() : '';
+        const dateValue = (dateInput && dateInput.value) ? dateInput.value.trim() : '';
 
         if (!title || title.length === 0) {
             alert('Please enter a title.');
@@ -131,16 +133,28 @@ function initializeBlogEditor() {
             return;
         }
 
+        // Use provided date or today's date
+        let postDate;
+        if (dateValue) {
+            postDate = new Date(dateValue).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        } else {
+            postDate = new Date().toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
         const post = {
             id: Date.now(),
             title: title,
             imageUrl: imageUrl,
             content: content,
-            date: new Date().toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            })
+            date: postDate
         };
 
         saveBlogPost(post);
