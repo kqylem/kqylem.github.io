@@ -97,12 +97,28 @@ function initializeBlogEditor() {
     blogForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const title = document.getElementById('post-title').value;
-        const imageUrl = document.getElementById('post-image').value;
-        const content = document.getElementById('post-content').value;
+        const titleInput = document.getElementById('post-title');
+        const contentInput = document.getElementById('post-content');
+        const imageInput = document.getElementById('post-image');
 
-        if (!title || !content) {
-            alert('Please fill in the title and content.');
+        if (!titleInput || !contentInput) {
+            alert('Form fields not found. Please refresh the page.');
+            return;
+        }
+
+        const title = titleInput.value.trim();
+        const content = contentInput.value.trim();
+        const imageUrl = imageInput ? imageInput.value.trim() : '';
+
+        if (!title) {
+            alert('Please enter a title.');
+            titleInput.focus();
+            return;
+        }
+
+        if (!content) {
+            alert('Please enter content.');
+            contentInput.focus();
             return;
         }
 
@@ -198,27 +214,62 @@ function initializePDFEditor() {
     pdfForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const title = document.getElementById('pdf-title').value;
-        const section = document.getElementById('pdf-section').value;
-        const description = document.getElementById('pdf-description').value;
-        const source = document.querySelector('input[name="pdf-source"]:checked').value;
+        const titleInput = document.getElementById('pdf-title');
+        const sectionInput = document.getElementById('pdf-section');
+        const descriptionInput = document.getElementById('pdf-description');
+        const sourceRadio = document.querySelector('input[name="pdf-source"]:checked');
 
-        if (!title || !section) {
-            alert('Please fill in all required fields.');
+        if (!titleInput || !sectionInput) {
+            alert('Form fields not found. Please refresh the page.');
             return;
         }
 
+        const title = titleInput.value.trim();
+        const section = sectionInput.value.trim();
+        const description = descriptionInput ? descriptionInput.value.trim() : '';
+
+        if (!title) {
+            alert('Please enter a PDF title.');
+            titleInput.focus();
+            return;
+        }
+
+        if (!section) {
+            alert('Please select a section.');
+            sectionInput.focus();
+            return;
+        }
+
+        if (!sourceRadio) {
+            alert('Please select a PDF source (URL or File).');
+            return;
+        }
+
+        const source = sourceRadio.value;
+
         if (source === 'url') {
-            const url = document.getElementById('pdf-url').value;
+            const urlInput = document.getElementById('pdf-url');
+            if (!urlInput) {
+                alert('URL input not found. Please refresh the page.');
+                return;
+            }
+            const url = urlInput.value.trim();
             if (!url) {
                 alert('Please enter a PDF URL.');
+                urlInput.focus();
                 return;
             }
             addPDFByURL(title, section, description, url);
         } else {
-            const file = document.getElementById('pdf-file').files[0];
+            const fileInput = document.getElementById('pdf-file');
+            if (!fileInput) {
+                alert('File input not found. Please refresh the page.');
+                return;
+            }
+            const file = fileInput.files[0];
             if (!file) {
                 alert('Please select a PDF file.');
+                fileInput.focus();
                 return;
             }
             addPDFByFile(title, section, description, file);
@@ -324,19 +375,43 @@ function initializeReadingEditor() {
     readingForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const name = document.getElementById('edit-entry-name').value.trim();
-        const author = document.getElementById('edit-entry-author').value.trim();
-        const tagsInput = document.getElementById('edit-entry-tags').value.trim();
-        const complete = document.getElementById('edit-entry-complete').value;
-        const date = document.getElementById('edit-entry-date').value;
+        const nameInput = document.getElementById('edit-entry-name');
+        const authorInput = document.getElementById('edit-entry-author');
+        const tagsInput = document.getElementById('edit-entry-tags');
+        const completeInput = document.getElementById('edit-entry-complete');
+        const dateInput = document.getElementById('edit-entry-date');
 
-        if (!name || !author || !date) {
-            alert('Please fill in all required fields.');
+        if (!nameInput || !authorInput || !completeInput || !dateInput) {
+            alert('Form fields not found. Please refresh the page.');
+            return;
+        }
+
+        const name = nameInput.value.trim();
+        const author = authorInput.value.trim();
+        const tagsStr = tagsInput ? tagsInput.value.trim() : '';
+        const complete = completeInput.value;
+        const date = dateInput.value;
+
+        if (!name) {
+            alert('Please enter the book name.');
+            nameInput.focus();
+            return;
+        }
+
+        if (!author) {
+            alert('Please enter the author name.');
+            authorInput.focus();
+            return;
+        }
+
+        if (!date) {
+            alert('Please select a date.');
+            dateInput.focus();
             return;
         }
 
         // Parse tags
-        const tags = tagsInput
+        const tags = tagsStr
             .split(',')
             .map(tag => tag.trim().toLowerCase())
             .filter(tag => tag.length > 0);
@@ -351,7 +426,9 @@ function initializeReadingEditor() {
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric' 
-            })
+            }),
+            dateValue: date, // Store for sorting
+            timestamp: new Date(date).getTime() // Store timestamp for sorting
         };
 
         saveReadingEntry(entry);
@@ -572,17 +649,34 @@ function initializeNewSection() {
     newSectionForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const name = document.getElementById('new-section-name').value.trim();
-        const url = document.getElementById('new-section-url').value.trim();
-        const content = document.getElementById('new-section-content').value;
+        const nameInput = document.getElementById('new-section-name');
+        const urlInput = document.getElementById('new-section-url');
+        const contentInput = document.getElementById('new-section-content');
 
-        if (!name || !url) {
-            alert('Please fill in section name and URL.');
+        if (!nameInput || !urlInput) {
+            alert('Form fields not found. Please refresh the page.');
+            return;
+        }
+
+        const name = nameInput.value.trim();
+        const url = urlInput.value.trim();
+        const content = contentInput ? contentInput.value : '';
+
+        if (!name) {
+            alert('Please enter a section name.');
+            nameInput.focus();
+            return;
+        }
+
+        if (!url) {
+            alert('Please enter a URL.');
+            urlInput.focus();
             return;
         }
 
         if (!url.endsWith('.html')) {
             alert('URL must end with .html');
+            urlInput.focus();
             return;
         }
 

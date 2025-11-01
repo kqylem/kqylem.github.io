@@ -79,15 +79,24 @@ body.dark-mode .nav-link.active {
     background-image: linear-gradient(to right, #1a4d7a, #2a5a8a);
 }
 
-/* Force all links to be blue in dark mode */
+/* Force all links to be blue in dark mode - MUST BE BLUE */
+body.dark-mode a,
 body.dark-mode a:link,
 body.dark-mode a:visited,
-body.dark-mode a:active {
-    color: var(--link-color) !important;
+body.dark-mode a:hover,
+body.dark-mode a:active,
+body.dark-mode a:focus {
+    color: #66b3ff !important;
 }
 
-body.dark-mode a:hover {
-    color: var(--link-color) !important;
+/* Override any other link styles in dark mode */
+body.dark-mode .nav-link:visited,
+body.dark-mode .post-title a,
+body.dark-mode .pdf-entry-link a,
+body.dark-mode .pdf-entry-title a,
+body.dark-mode section-content a,
+body.dark-mode .content a {
+    color: #66b3ff !important;
 }
 
 * {

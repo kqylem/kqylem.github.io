@@ -120,19 +120,43 @@ function initializeReadingForm() {
     readingForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const name = document.getElementById('entry-name').value.trim();
-        const author = document.getElementById('entry-author').value.trim();
-        const tagsInput = document.getElementById('entry-tags').value.trim();
-        const complete = document.getElementById('entry-complete').value;
-        const date = document.getElementById('entry-date').value;
+        const nameInput = document.getElementById('entry-name');
+        const authorInput = document.getElementById('entry-author');
+        const tagsInput = document.getElementById('entry-tags');
+        const completeInput = document.getElementById('entry-complete');
+        const dateInput = document.getElementById('entry-date');
 
-        if (!name || !author || !date) {
-            alert('Please fill in all required fields.');
+        if (!nameInput || !authorInput || !completeInput || !dateInput) {
+            alert('Form fields not found. Please refresh the page.');
+            return;
+        }
+
+        const name = nameInput.value.trim();
+        const author = authorInput.value.trim();
+        const tagsStr = tagsInput ? tagsInput.value.trim() : '';
+        const complete = completeInput.value;
+        const date = dateInput.value;
+
+        if (!name) {
+            alert('Please enter the book name.');
+            nameInput.focus();
+            return;
+        }
+
+        if (!author) {
+            alert('Please enter the author name.');
+            authorInput.focus();
+            return;
+        }
+
+        if (!date) {
+            alert('Please select a date.');
+            dateInput.focus();
             return;
         }
 
         // Parse tags
-        const tags = tagsInput
+        const tags = tagsStr
             .split(',')
             .map(tag => tag.trim().toLowerCase())
             .filter(tag => tag.length > 0);
@@ -148,7 +172,8 @@ function initializeReadingForm() {
                 month: 'long', 
                 day: 'numeric' 
             }),
-            dateValue: date // Store for sorting
+            dateValue: date, // Store for sorting
+            timestamp: new Date(date).getTime() // Store timestamp for sorting
         };
 
         saveReadingEntry(entry);
@@ -208,8 +233,13 @@ async function loadReadingList() {
         }
     });
     
-    // Sort by ID (newest first)
-    uniqueEntries.sort((a, b) => (b.id || 0) - (a.id || 0));
+    // Sort by date (most recent at top)
+    uniqueEntries.sort((a, b) => {
+        // Use timestamp if available, otherwise fall back to dateValue, then ID
+        const aTime = a.timestamp || (a.dateValue ? new Date(a.dateValue).getTime() : 0) || (a.id || 0);
+        const bTime = b.timestamp || (b.dateValue ? new Date(b.dateValue).getTime() : 0) || (b.id || 0);
+        return bTime - aTime; // Most recent first
+    });
     
     displayReadingList(uniqueEntries);
 }
