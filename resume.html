@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .resume-viewer {
+            width: 100%;
+            height: calc(100vh - 200px);
+            min-height: 800px;
+            border: 2px solid var(--border-color);
+            background-color: #f9f9f9;
+        }
+        .resume-container {
+            margin-top: 20px;
+        }
+        .resume-controls {
+            margin-bottom: 15px;
+        }
+        .resume-btn {
+            padding: 6px 16px;
+            border: 2px outset #d0d0d0;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            margin-right: 10px;
+        }
+        .resume-btn:hover {
+            background-color: #e8e8e8;
+        }
+        .resume-btn:active {
+            border: 2px inset #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">Personal Website</h1>
+                <div class="header-controls">
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search...">
+                        <button id="search-btn" class="search-btn">Go</button>
+                    </div>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="bios-font-toggle">
+                        IBM BIOS Font
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="notes.html" class="nav-link">Notes</a></li>
+                        <li><a href="writing.html" class="nav-link">Writing</a></li>
+                        <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="resume.html" class="nav-link active">Resume</a></li>
+                        <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
+                        <li><a href="game.html" class="nav-link">Game</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <div class="page-header">
+                    <h2>Resume</h2>
+                </div>
+
+                <div class="resume-container">
+                    <div class="resume-controls">
+                        <button class="resume-btn" onclick="downloadResume()">Download PDF</button>
+                    </div>
+                    <iframe id="resume-viewer" class="resume-viewer" src="resume.pdf" type="application/pdf">
+                        <p>Your browser does not support PDFs. <a href="resume.pdf">Download the resume</a> instead.</p>
+                    </iframe>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function downloadResume() {
+            const link = document.createElement('a');
+            link.href = 'resume.pdf';
+            link.download = 'resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Search -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">Personal Website</h1>
+                <div class="header-controls">
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search...">
+                        <button id="search-btn" class="search-btn">Go</button>
+                    </div>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="bios-font-toggle">
+                        IBM BIOS Font
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="main-layout">
+            <!-- Left Sidebar Navigation -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="index.html" class="nav-link active">Home</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="notes.html" class="nav-link">Notes</a></li>
+                        <li><a href="writing.html" class="nav-link">Writing</a></li>
+                        <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="resume.html" class="nav-link">Resume</a></li>
+                        <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
+                        <li><a href="game.html" class="nav-link">Game</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="content">
+                <div class="page-header">
+                    <h2>Home</h2>
+                </div>
+
+                <!-- Blog Post Creation Form -->
+                <div class="blog-form-container">
+                    <h3>Create New Post</h3>
+                    <form id="blog-post-form" class="blog-form">
+                        <div class="form-group">
+                            <label for="post-title">Title:</label>
+                            <input type="text" id="post-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-image">Image URL:</label>
+                            <input type="url" id="post-image" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-content">Content:</label>
+                            <textarea id="post-content" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Publish Post</button>
+                    </form>
+                </div>
+
+                <!-- Blog Feed -->
+                <div class="blog-feed" id="blog-feed">
+                    <h3>Recent Posts</h3>
+                    <div id="posts-container">
+                        <!-- Blog posts will be dynamically inserted here -->
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

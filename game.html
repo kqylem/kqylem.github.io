@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game - Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">Personal Website</h1>
+                <div class="header-controls">
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search...">
+                        <button id="search-btn" class="search-btn">Go</button>
+                    </div>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="bios-font-toggle">
+                        IBM BIOS Font
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="notes.html" class="nav-link">Notes</a></li>
+                        <li><a href="writing.html" class="nav-link">Writing</a></li>
+                        <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="resume.html" class="nav-link">Resume</a></li>
+                        <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
+                        <li><a href="game.html" class="nav-link active">Game</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <div id="password-protection" style="display: none;">
+                    <div class="password-form">
+                        <h2>Password Required</h2>
+                        <input type="password" id="password-input" class="password-input" placeholder="Enter password">
+                        <button id="password-submit" class="password-submit">Submit</button>
+                        <div id="password-error" class="error-message"></div>
+                    </div>
+                </div>
+
+                <div id="game-content" style="display: none;">
+                    <div class="page-header">
+                        <h2>Game</h2>
+                    </div>
+
+                    <div class="content-section">
+                        <p>Welcome to the Game section! This area is password protected.</p>
+                        
+                        <h3>Games</h3>
+                        <p>Game content will be displayed here...</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
+
