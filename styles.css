@@ -79,6 +79,17 @@ body.dark-mode .nav-link.active {
     background-image: linear-gradient(to right, #1a4d7a, #2a5a8a);
 }
 
+/* Force all links to be blue in dark mode */
+body.dark-mode a:link,
+body.dark-mode a:visited,
+body.dark-mode a:active {
+    color: var(--link-color) !important;
+}
+
+body.dark-mode a:hover {
+    color: var(--link-color) !important;
+}
+
 * {
     margin: 0;
     padding: 0;

@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeTabs();
     initializeBlogEditor();
     initializePDFEditor();
+    initializeReadingEditor();
     initializeSectionEditor();
     initializeNewSection();
 });
@@ -308,6 +309,91 @@ function savePDF(pdf) {
     localStorage.setItem('pdfs', JSON.stringify(pdfs));
 }
 
+// Reading List Editor
+function initializeReadingEditor() {
+    const readingForm = document.getElementById('reading-entry-form');
+    if (!readingForm) return;
+
+    // Set today's date as default
+    const dateInput = document.getElementById('edit-entry-date');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+    }
+
+    readingForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('edit-entry-name').value.trim();
+        const author = document.getElementById('edit-entry-author').value.trim();
+        const tagsInput = document.getElementById('edit-entry-tags').value.trim();
+        const complete = document.getElementById('edit-entry-complete').value;
+        const date = document.getElementById('edit-entry-date').value;
+
+        if (!name || !author || !date) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Parse tags
+        const tags = tagsInput
+            .split(',')
+            .map(tag => tag.trim().toLowerCase())
+            .filter(tag => tag.length > 0);
+
+        const entry = {
+            id: Date.now(),
+            name: name,
+            author: author,
+            tags: tags,
+            complete: complete,
+            date: new Date(date).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            })
+        };
+
+        saveReadingEntry(entry);
+        alert('Entry saved locally! Export to make it visible to everyone.');
+        readingForm.reset();
+        
+        // Reset date to today
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
+        }
+    });
+
+    // Export button
+    const exportBtn = document.getElementById('reading-export');
+    const exportResult = document.getElementById('reading-export-result');
+    const exportJson = document.getElementById('reading-export-json');
+    
+    if (exportBtn && exportResult && exportJson) {
+        exportBtn.addEventListener('click', function() {
+            const localEntries = JSON.parse(localStorage.getItem('readingList') || '[]');
+            
+            if (localEntries.length === 0) {
+                alert('No local entries to export. Create some entries first!');
+                return;
+            }
+            
+            const jsonString = JSON.stringify(localEntries, null, 2);
+            exportJson.value = jsonString;
+            exportResult.style.display = 'block';
+            exportJson.focus();
+            exportJson.select();
+        });
+    }
+}
+
+function saveReadingEntry(entry) {
+    let entries = JSON.parse(localStorage.getItem('readingList') || '[]');
+    entries.unshift(entry);
+    localStorage.setItem('readingList', JSON.stringify(entries));
+}
+
 // Section Content Editor
 function initializeSectionEditor() {
     const sectionSelect = document.getElementById('section-select');
@@ -433,12 +519,11 @@ function loadSectionOptions() {
     const sectionSelect = document.getElementById('section-select');
     if (!sectionSelect) return;
 
-    // Load existing sections from storage
-    const sections = JSON.parse(localStorage.getItem('sectionContent') || '{}');
-    const existingSections = Object.keys(sections);
+    // Clear existing options to prevent duplicates
+    sectionSelect.innerHTML = '';
     
-    // Add default sections if not present
-    const defaultSections = ['Notes', 'Writing', 'Poetry', 'About', 'Home', 'Game'];
+    // Add default sections
+    const defaultSections = ['Notes', 'Writing', 'Poetry', 'About', 'Home', 'Game', 'Resume', 'Reading List'];
     defaultSections.forEach(section => {
         const option = document.createElement('option');
         option.value = section;
