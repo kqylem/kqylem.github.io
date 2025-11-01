@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes - Personal Website</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- MathJax for LaTeX support -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
 </head>
 <body>
     <div class="container">
@@ -20,6 +31,10 @@
                         <input type="checkbox" id="bios-font-toggle">
                         IBM BIOS Font
                     </label>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        Dark Mode
+                    </label>
                 </div>
             </div>
         </header>
@@ -33,6 +48,7 @@
                         <li><a href="notes.html" class="nav-link active">Notes</a></li>
                         <li><a href="writing.html" class="nav-link">Writing</a></li>
                         <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="reading-list.html" class="nav-link">Reading List</a></li>
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
@@ -46,16 +62,97 @@
                 </div>
 
                 <div class="content-section">
-                    <p>This is the Notes section. Here you can find various notes and thoughts.</p>
-                    
-                    <h3>Recent Notes</h3>
-                    <p>Notes will be displayed here...</p>
+                    <div class="section-content">
+                        <p>This is the Notes section. Here you can find various notes and thoughts.</p>
+                        
+                        <h3>Recent Notes</h3>
+                        <p>Notes will be displayed here...</p>
+                        
+                        <p>You can edit this section directly in the HTML file to add your own content, headings, and bullet points.</p>
+                        
+                        <h3>Examples of Content</h3>
+                        <ul>
+                            <li>You can use bullet points like this</li>
+                            <li>Each item gets a retro arrow bullet</li>
+                            <li>Perfect for organizing your thoughts</li>
+                        </ul>
+                        
+                        <h3>PDFs</h3>
+                        <p>Below are PDFs associated with this section. Each PDF includes a title, description, and link.</p>
+                        <div id="notes-pdfs-container">
+                            <p>Loading PDFs...</p>
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Load PDFs for Notes section
+        async function loadNotesPDFs() {
+            const container = document.getElementById('notes-pdfs-container');
+            if (!container) return;
+
+            try {
+                let allPDFs = [];
+                
+                // Load from JSON file
+                try {
+                    const response = await fetch('pdfs.json');
+                    if (response.ok) {
+                        const jsonPDFs = await response.json();
+                        if (Array.isArray(jsonPDFs)) {
+                            allPDFs = jsonPDFs;
+                        }
+                    }
+                } catch (error) {
+                    console.log('Could not load pdfs.json');
+                }
+                
+                // Load from localStorage
+                const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
+                allPDFs = [...localPDFs, ...allPDFs];
+                
+                // Filter by Notes section
+                const notesPDFs = allPDFs.filter(pdf => pdf.section === 'Notes');
+                
+                if (notesPDFs.length === 0) {
+                    container.innerHTML = '<p>No PDFs in Notes section yet.</p>';
+                    return;
+                }
+                
+                container.innerHTML = '';
+                notesPDFs.forEach(pdf => {
+                    const pdfEntry = document.createElement('div');
+                    pdfEntry.className = 'pdf-entry';
+                    pdfEntry.innerHTML = `
+                        <div class="pdf-entry-title">
+                            <a href="view-pdf.html?id=${pdf.id}" target="_blank">${escapeHtml(pdf.title)}</a>
+                        </div>
+                        ${pdf.description ? `<div class="pdf-entry-description">${escapeHtml(pdf.description)}</div>` : ''}
+                        <div class="pdf-entry-link">
+                            <a href="view-pdf.html?id=${pdf.id}" target="_blank">View PDF →</a>
+                        </div>
+                        <div class="pdf-entry-date">${pdf.date}</div>
+                    `;
+                    container.appendChild(pdfEntry);
+                });
+            } catch (error) {
+                container.innerHTML = '<p>Error loading PDFs.</p>';
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadNotesPDFs);
+    </script>
 </body>
 </html>
 

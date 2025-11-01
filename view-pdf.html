@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer - Personal Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- MathJax for LaTeX support -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <style>
+        .pdf-viewer-page {
+            width: 100%;
+            height: calc(100vh - 150px);
+            min-height: 600px;
+            border: 2px solid var(--border-color);
+            background-color: #f9f9f9;
+        }
+        .pdf-page-header {
+            margin-bottom: 15px;
+        }
+        .pdf-controls {
+            margin-bottom: 15px;
+        }
+        .pdf-control-btn {
+            padding: 6px 16px;
+            border: 2px outset #d0d0d0;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            margin-right: 10px;
+        }
+        .pdf-control-btn:hover {
+            background-color: #e8e8e8;
+        }
+        .pdf-control-btn:active {
+            border: 2px inset #d0d0d0;
+        }
+        body.dark-mode .pdf-viewer-page {
+            background-color: #2a2a2a;
+            border-color: var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">Personal Website</h1>
+                <div class="header-controls">
+                    <div class="search-container">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search...">
+                        <button id="search-btn" class="search-btn">Go</button>
+                    </div>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="bios-font-toggle">
+                        IBM BIOS Font
+                    </label>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        Dark Mode
+                    </label>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="notes.html" class="nav-link">Notes</a></li>
+                        <li><a href="writing.html" class="nav-link">Writing</a></li>
+                        <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="reading-list.html" class="nav-link">Reading List</a></li>
+                        <li><a href="resume.html" class="nav-link">Resume</a></li>
+                        <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
+                        <li><a href="game.html" class="nav-link">Game</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <div class="pdf-page-header">
+                    <h2 id="pdf-page-title">Loading PDF...</h2>
+                    <div id="pdf-page-description"></div>
+                </div>
+
+                <div class="pdf-controls">
+                    <button class="pdf-control-btn" onclick="downloadCurrentPDF()">Download</button>
+                    <button class="pdf-control-btn" onclick="window.history.back()">Back</button>
+                </div>
+
+                <iframe id="pdf-viewer-frame" class="pdf-viewer-page" src=""></iframe>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let currentPDFData = null;
+
+        // Get PDF ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const pdfId = urlParams.get('id');
+
+        async function loadPDF() {
+            if (!pdfId) {
+                document.getElementById('pdf-page-title').textContent = 'PDF not found';
+                return;
+            }
+
+            try {
+                // Load from JSON file
+                const response = await fetch('pdfs.json');
+                if (response.ok) {
+                    const pdfs = await response.json();
+                    const pdf = pdfs.find(p => p.id == pdfId);
+                    
+                    if (pdf) {
+                        currentPDFData = pdf;
+                        document.getElementById('pdf-page-title').textContent = pdf.title;
+                        
+                        if (pdf.description) {
+                            document.getElementById('pdf-page-description').textContent = pdf.description;
+                        }
+                        
+                        // Set PDF source
+                        const viewer = document.getElementById('pdf-viewer-frame');
+                        if (pdf.type === 'url') {
+                            viewer.src = pdf.url;
+                        } else if (pdf.type === 'base64') {
+                            viewer.src = pdf.data;
+                        }
+                    } else {
+                        // Try localStorage
+                        const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
+                        const localPDF = localPDFs.find(p => p.id == pdfId);
+                        
+                        if (localPDF) {
+                            currentPDFData = localPDF;
+                            document.getElementById('pdf-page-title').textContent = localPDF.title;
+                            
+                            if (localPDF.description) {
+                                document.getElementById('pdf-page-description').textContent = localPDF.description;
+                            }
+                            
+                            const viewer = document.getElementById('pdf-viewer-frame');
+                            if (localPDF.type === 'url') {
+                                viewer.src = localPDF.url;
+                            } else if (localPDF.type === 'base64') {
+                                viewer.src = localPDF.data;
+                            }
+                        } else {
+                            document.getElementById('pdf-page-title').textContent = 'PDF not found';
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                document.getElementById('pdf-page-title').textContent = 'Error loading PDF';
+            }
+        }
+
+        function downloadCurrentPDF() {
+            if (!currentPDFData) return;
+
+            let pdfUrl;
+            let fileName = currentPDFData.fileName || currentPDFData.title + '.pdf';
+
+            if (currentPDFData.type === 'url') {
+                window.open(currentPDFData.url, '_blank');
+                return;
+            } else if (currentPDFData.type === 'base64') {
+                pdfUrl = currentPDFData.data;
+            } else {
+                return;
+            }
+
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPDF();
+        });
+    </script>
+</body>
+</html>
+

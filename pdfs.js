@@ -1,10 +1,97 @@
 // PDF Management JavaScript
 
+const PDF_AUTHOR_PASSWORD = '1313';
+const PDF_AUTH_STORAGE_KEY = 'pdfAuthorAccess';
+
 document.addEventListener('DOMContentLoaded', function() {
+    initializePDFAuth();
     initializePDFForm();
     loadPDFs();
     initializeModal();
 });
+
+// PDF Author Authentication
+function initializePDFAuth() {
+    const pdfAuth = document.getElementById('pdf-auth');
+    const pdfFormContainer = document.getElementById('pdf-form-container');
+    
+    if (!pdfAuth || !pdfFormContainer) return;
+
+    // Check if already authenticated
+    const hasAccess = sessionStorage.getItem(PDF_AUTH_STORAGE_KEY) === 'true';
+    
+    if (hasAccess) {
+        pdfAuth.style.display = 'none';
+        pdfFormContainer.style.display = 'block';
+    } else {
+        pdfAuth.style.display = 'block';
+        pdfFormContainer.style.display = 'none';
+        
+        const passwordInput = document.getElementById('pdf-password-input');
+        const passwordSubmit = document.getElementById('pdf-password-submit');
+        const passwordError = document.getElementById('pdf-password-error');
+        const pdfLogout = document.getElementById('pdf-logout');
+        
+        if (passwordSubmit && passwordInput) {
+            function checkPassword() {
+                const enteredPassword = passwordInput.value.trim();
+                
+                if (enteredPassword === PDF_AUTHOR_PASSWORD) {
+                    sessionStorage.setItem(PDF_AUTH_STORAGE_KEY, 'true');
+                    pdfAuth.style.display = 'none';
+                    pdfFormContainer.style.display = 'block';
+                    if (passwordError) passwordError.textContent = '';
+                    passwordInput.value = '';
+                } else {
+                    if (passwordError) {
+                        passwordError.textContent = 'Incorrect password. Please try again.';
+                    }
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            }
+
+            passwordSubmit.addEventListener('click', checkPassword);
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+            passwordInput.focus();
+        }
+        
+        // Logout button
+        if (pdfLogout) {
+            pdfLogout.addEventListener('click', function() {
+                sessionStorage.removeItem(PDF_AUTH_STORAGE_KEY);
+                pdfAuth.style.display = 'block';
+                pdfFormContainer.style.display = 'none';
+            });
+        }
+    }
+    
+    // Export button
+    const exportBtn = document.getElementById('pdf-export');
+    const exportResult = document.getElementById('pdf-export-result');
+    const exportJson = document.getElementById('pdf-export-json');
+    
+    if (exportBtn && exportResult && exportJson) {
+        exportBtn.addEventListener('click', function() {
+            const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
+            
+            if (localPDFs.length === 0) {
+                alert('No local PDFs to export. Create some PDFs first!');
+                return;
+            }
+            
+            const jsonString = JSON.stringify(localPDFs, null, 2);
+            exportJson.value = jsonString;
+            exportResult.style.display = 'block';
+            exportJson.focus();
+            exportJson.select();
+        });
+    }
+}
 
 // Initialize PDF form
 function initializePDFForm() {
@@ -45,7 +132,6 @@ function initializePDFForm() {
                 fileInfo.textContent = `Selected: ${file.name} (${fileSize} MB)`;
                 fileInfo.style.color = '#666';
                 
-                // Warn if file is very large (base64 will be ~33% larger)
                 if (file.size > 10 * 1024 * 1024) {
                     fileInfo.textContent += ' - Large file, processing may take a moment...';
                 }
@@ -60,11 +146,17 @@ function initializePDFForm() {
         e.preventDefault();
 
         const title = document.getElementById('pdf-title').value;
+        const section = document.getElementById('pdf-section').value;
         const description = document.getElementById('pdf-description').value;
         const source = document.querySelector('input[name="pdf-source"]:checked').value;
 
         if (!title) {
             alert('Please enter a title.');
+            return;
+        }
+
+        if (!section) {
+            alert('Please select a section.');
             return;
         }
 
@@ -74,23 +166,24 @@ function initializePDFForm() {
                 alert('Please enter a PDF URL.');
                 return;
             }
-            addPDFByURL(title, description, url);
+            addPDFByURL(title, section, description, url);
         } else {
             const file = document.getElementById('pdf-file').files[0];
             if (!file) {
                 alert('Please select a PDF file.');
                 return;
             }
-            addPDFByFile(title, description, file);
+            addPDFByFile(title, section, description, file);
         }
     });
 }
 
 // Add PDF by URL
-function addPDFByURL(title, description, url) {
+function addPDFByURL(title, section, description, url) {
     const pdf = {
         id: Date.now(),
         title: title,
+        section: section,
         description: description || '',
         url: url,
         type: 'url',
@@ -105,10 +198,11 @@ function addPDFByURL(title, description, url) {
     displayPDF(pdf);
     document.getElementById('pdf-form').reset();
     document.getElementById('file-info').textContent = '';
+    alert('PDF saved locally! Export to make it visible to everyone.');
 }
 
 // Add PDF by file upload (convert to base64)
-function addPDFByFile(title, description, file) {
+function addPDFByFile(title, section, description, file) {
     const reader = new FileReader();
 
     reader.onload = function(e) {
@@ -117,6 +211,7 @@ function addPDFByFile(title, description, file) {
         const pdf = {
             id: Date.now(),
             title: title,
+            section: section,
             description: description || '',
             fileName: file.name,
             data: base64Data,
@@ -132,6 +227,7 @@ function addPDFByFile(title, description, file) {
         displayPDF(pdf);
         document.getElementById('pdf-form').reset();
         document.getElementById('file-info').textContent = '';
+        alert('PDF saved locally! Export to make it visible to everyone.');
     };
 
     reader.onerror = function() {
@@ -148,20 +244,52 @@ function savePDF(pdf) {
     localStorage.setItem('pdfs', JSON.stringify(pdfs));
 }
 
-// Load PDFs from localStorage
-function loadPDFs() {
+// Load PDFs from JSON file and localStorage
+async function loadPDFs() {
     const pdfsContainer = document.getElementById('pdfs-container');
     if (!pdfsContainer) return;
 
-    const pdfs = JSON.parse(localStorage.getItem('pdfs') || '[]');
+    let allPDFs = [];
     
-    if (!Array.isArray(pdfs) || pdfs.length === 0) {
+    // First, try to load from JSON file (shared PDFs everyone can see)
+    try {
+        const response = await fetch('pdfs.json');
+        if (response.ok) {
+            const jsonPDFs = await response.json();
+            if (Array.isArray(jsonPDFs)) {
+                allPDFs = jsonPDFs;
+            }
+        }
+    } catch (error) {
+        console.log('Could not load pdfs.json, using localStorage only');
+    }
+    
+    // Also load from localStorage (local PDFs)
+    const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
+    
+    // Combine both sources
+    allPDFs = [...localPDFs, ...allPDFs];
+    
+    // Remove duplicates based on ID
+    const uniquePDFs = [];
+    const seenIds = new Set();
+    allPDFs.forEach(pdf => {
+        if (!seenIds.has(pdf.id)) {
+            seenIds.add(pdf.id);
+            uniquePDFs.push(pdf);
+        }
+    });
+    
+    // Sort by ID (newest first)
+    uniquePDFs.sort((a, b) => (b.id || 0) - (a.id || 0));
+    
+    if (uniquePDFs.length === 0) {
         pdfsContainer.innerHTML = '<p>No PDFs yet. Add your first PDF above!</p>';
         return;
     }
 
     pdfsContainer.innerHTML = '';
-    pdfs.forEach(pdf => {
+    uniquePDFs.forEach(pdf => {
         displayPDF(pdf, pdfsContainer);
     });
 }
@@ -177,28 +305,24 @@ function displayPDF(pdf, container) {
     pdfElement.className = 'pdf-item';
     pdfElement.setAttribute('data-pdf-id', pdf.id);
     
+    const sectionBadge = pdf.section ? `<span style="background-color: #e0e0e0; padding: 2px 8px; font-size: 11px; border-radius: 3px; margin-left: 10px;">${escapeHtml(pdf.section)}</span>` : '';
+    
     pdfElement.innerHTML = `
         <div class="pdf-item-header">
-            <h3 class="pdf-item-title">${escapeHtml(pdf.title)}</h3>
+            <h3 class="pdf-item-title">${escapeHtml(pdf.title)}${sectionBadge}</h3>
             <div class="pdf-item-date">${pdf.date}</div>
         </div>
         ${pdf.description ? `<div class="pdf-item-description">${escapeHtml(pdf.description)}</div>` : ''}
         <div class="pdf-item-actions">
-            <button class="pdf-action-btn view-pdf-btn" data-pdf-id="${pdf.id}">View</button>
+            <a href="view-pdf.html?id=${pdf.id}" class="pdf-action-btn" target="_blank">View</a>
             <button class="pdf-action-btn download-pdf-btn" data-pdf-id="${pdf.id}">Download</button>
         </div>
     `;
 
     container.appendChild(pdfElement);
 
-    // Attach event listeners
-    const viewBtn = pdfElement.querySelector('.view-pdf-btn');
+    // Attach download listener
     const downloadBtn = pdfElement.querySelector('.download-pdf-btn');
-
-    if (viewBtn) {
-        viewBtn.addEventListener('click', () => viewPDF(pdf));
-    }
-
     if (downloadBtn) {
         downloadBtn.addEventListener('click', () => downloadPDF(pdf));
     }
@@ -207,25 +331,9 @@ function displayPDF(pdf, container) {
 // Current PDF being viewed (for modal download)
 let currentPDF = null;
 
-// View PDF in modal
+// View PDF in modal (kept for backward compatibility)
 function viewPDF(pdf) {
-    const modal = document.getElementById('pdf-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const pdfViewer = document.getElementById('pdf-viewer');
-
-    if (!modal || !modalTitle || !pdfViewer) return;
-
-    currentPDF = pdf; // Store current PDF for download
-    modalTitle.textContent = pdf.title;
-    
-    // Set PDF source
-    if (pdf.type === 'url') {
-        pdfViewer.src = pdf.url;
-    } else if (pdf.type === 'base64') {
-        pdfViewer.src = pdf.data;
-    }
-
-    modal.style.display = 'flex';
+    window.location.href = `view-pdf.html?id=${pdf.id}`;
 }
 
 // Download PDF
@@ -234,7 +342,6 @@ function downloadPDF(pdf) {
     let fileName = pdf.fileName || pdf.title + '.pdf';
 
     if (pdf.type === 'url') {
-        // For URLs, we'll open in new tab and let browser handle download
         window.open(pdf.url, '_blank');
         return;
     } else if (pdf.type === 'base64') {
@@ -243,7 +350,6 @@ function downloadPDF(pdf) {
         return;
     }
 
-    // Create download link
     const link = document.createElement('a');
     link.href = pdfUrl;
     link.download = fileName;
@@ -252,63 +358,9 @@ function downloadPDF(pdf) {
     document.body.removeChild(link);
 }
 
-// Initialize modal controls
+// Initialize modal controls (kept for backward compatibility)
 function initializeModal() {
-    const modal = document.getElementById('pdf-modal');
-    const modalClose = document.getElementById('modal-close');
-    const pdfDownloadBtn = document.getElementById('pdf-download-btn');
-
-    if (!modal) return;
-
-    // Close modal
-    if (modalClose) {
-        modalClose.addEventListener('click', function() {
-            const pdfViewer = document.getElementById('pdf-viewer');
-            if (pdfViewer) pdfViewer.src = '';
-            currentPDF = null;
-            modal.style.display = 'none';
-        });
-    }
-
-    // Close on background click
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            const pdfViewer = document.getElementById('pdf-viewer');
-            if (pdfViewer) pdfViewer.src = '';
-            currentPDF = null;
-            modal.style.display = 'none';
-        }
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'flex') {
-            const pdfViewer = document.getElementById('pdf-viewer');
-            if (pdfViewer) pdfViewer.src = '';
-            currentPDF = null;
-            modal.style.display = 'none';
-        }
-    });
-
-    // Download button in modal
-    if (pdfDownloadBtn) {
-        pdfDownloadBtn.addEventListener('click', function() {
-            if (currentPDF) {
-                downloadPDF(currentPDF);
-            } else {
-                // Fallback to using iframe src
-                const pdfViewer = document.getElementById('pdf-viewer');
-                if (!pdfViewer || !pdfViewer.src) return;
-
-                const link = document.createElement('a');
-                link.href = pdfViewer.src;
-                link.download = 'document.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-        });
-    }
+    // Modal functionality kept but viewPDF now redirects to view-pdf.html
 }
 
 // Escape HTML to prevent XSS
@@ -319,3 +371,27 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// Function to get PDFs by section (for use in other pages)
+async function getPDFsBySection(sectionName) {
+    let allPDFs = [];
+    
+    // Load from JSON file
+    try {
+        const response = await fetch('pdfs.json');
+        if (response.ok) {
+            const jsonPDFs = await response.json();
+            if (Array.isArray(jsonPDFs)) {
+                allPDFs = jsonPDFs;
+            }
+        }
+    } catch (error) {
+        console.log('Could not load pdfs.json');
+    }
+    
+    // Load from localStorage
+    const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
+    allPDFs = [...localPDFs, ...allPDFs];
+    
+    // Filter by section
+    return allPDFs.filter(pdf => pdf.section === sectionName);
+}

@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game - Personal Website</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- MathJax for LaTeX support -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
 </head>
 <body>
     <div class="container">
@@ -20,6 +31,10 @@
                         <input type="checkbox" id="bios-font-toggle">
                         IBM BIOS Font
                     </label>
+                    <label class="font-toggle">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        Dark Mode
+                    </label>
                 </div>
             </div>
         </header>
@@ -33,6 +48,7 @@
                         <li><a href="notes.html" class="nav-link">Notes</a></li>
                         <li><a href="writing.html" class="nav-link">Writing</a></li>
                         <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="reading-list.html" class="nav-link">Reading List</a></li>
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
                         <li><a href="game.html" class="nav-link active">Game</a></li>
