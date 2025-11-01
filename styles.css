@@ -1,12 +1,14 @@
 /* 90s Wikipedia-Style Retro Aesthetic */
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 :root {
     --bg-color: #f9f9f9;
     --border-color: #a7a7a7;
     --link-color: #0645ad;
-    --link-visited: #0b0080;
+    --link-visited: #0645ad;
     --text-color: #000000;
     --sidebar-bg: #f6f6f6;
     --header-bg: #fafafa;
@@ -19,7 +21,7 @@ body.dark-mode {
     --bg-color: #1a1a1a;
     --border-color: #666666;
     --link-color: #66b3ff;
-    --link-visited: #9966ff;
+    --link-visited: #66b3ff;
     --text-color: #e0e0e0;
     --sidebar-bg: #2a2a2a;
     --header-bg: #222222;
@@ -100,10 +102,11 @@ body {
 
 body.bios-font,
 body.bios-font * {
-    font-family: 'Courier New', 'Courier', 'Lucida Console', monospace !important;
-    font-size: 13px !important;
-    font-weight: bold !important;
-    letter-spacing: 0.5px;
+    font-family: 'VT323', 'Courier New', 'Courier', 'Lucida Console', monospace !important;
+    font-size: 16px !important;
+    font-weight: normal !important;
+    letter-spacing: 0px;
+    line-height: 1.2 !important;
 }
 
 body.bios-font h1,
