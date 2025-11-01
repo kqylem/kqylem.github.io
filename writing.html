@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writing - Kyle Mickelson's Website</title>
+    <title>Writing & Poetry - Kyle Mickelson's Website</title>
     <link rel="stylesheet" href="styles.css">
     <!-- MathJax for LaTeX support -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -42,8 +42,7 @@
                         <li><a href="index.html" class="nav-link">Home</a></li>
                         <li><a href="about.html" class="nav-link">About</a></li>
                         <li><a href="notes.html" class="nav-link">Notes</a></li>
-                        <li><a href="writing.html" class="nav-link active">Writing</a></li>
-                        <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="writing.html" class="nav-link active">Writing & Poetry</a></li>
                         <li><a href="reading-list.html" class="nav-link">Reading List</a></li>
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
@@ -54,7 +53,7 @@
 
             <main class="content">
                 <div class="page-header">
-                    <h2>Writing</h2>
+                    <h2>Writing & Poetry</h2>
                 </div>
 
                 <div class="content-section">
@@ -88,10 +87,10 @@
                 
                 const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
                 allPDFs = [...localPDFs, ...allPDFs];
-                const writingPDFs = allPDFs.filter(pdf => pdf.section === 'Writing');
+                const writingPDFs = allPDFs.filter(pdf => pdf.section === 'Writing' || pdf.section === 'Poetry');
                 
                 if (writingPDFs.length === 0) {
-                    container.innerHTML = '<p>No PDFs in Writing section yet.</p>';
+                    container.innerHTML = '<p>No PDFs in Writing & Poetry section yet.</p>';
                     return;
                 }
                 

@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poetry - Kyle Mickelson's Website</title>
-    <meta http-equiv="refresh" content="0; url=writing.html">
-    <script>window.location.href = 'writing.html';</script>
+    <title>Math - Kyle Mickelson's Website</title>
     <link rel="stylesheet" href="styles.css">
     <!-- MathJax for LaTeX support -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -44,8 +42,8 @@
                         <li><a href="index.html" class="nav-link">Home</a></li>
                         <li><a href="about.html" class="nav-link">About</a></li>
                         <li><a href="notes.html" class="nav-link">Notes</a></li>
-                        <li><a href="writing.html" class="nav-link">Writing</a></li>
-                        <li><a href="poetry.html" class="nav-link active">Poetry</a></li>
+                        <li><a href="writing.html" class="nav-link">Writing & Poetry</a></li>
+                        <li><a href="math.html" class="nav-link active">Math</a></li>
                         <li><a href="reading-list.html" class="nav-link">Reading List</a></li>
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
@@ -56,14 +54,14 @@
 
             <main class="content">
                 <div class="page-header">
-                    <h2>Poetry</h2>
+                    <h2>Math</h2>
                 </div>
 
                 <div class="content-section">
                     <div class="section-content" id="section-content">
                         <!-- Content will be loaded dynamically -->
                     </div>
-                    <div id="poetry-pdfs-container">
+                    <div id="math-pdfs-container">
                         <p>Loading PDFs...</p>
                     </div>
                 </div>
@@ -74,8 +72,8 @@
     <script src="script.js"></script>
     <script src="section-loader.js"></script>
     <script>
-        async function loadPoetryPDFs() {
-            const container = document.getElementById('poetry-pdfs-container');
+        async function loadMathPDFs() {
+            const container = document.getElementById('math-pdfs-container');
             if (!container) return;
 
             try {
@@ -90,15 +88,15 @@
                 
                 const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
                 allPDFs = [...localPDFs, ...allPDFs];
-                const poetryPDFs = allPDFs.filter(pdf => pdf.section === 'Poetry');
+                const mathPDFs = allPDFs.filter(pdf => pdf.section === 'Math');
                 
-                if (poetryPDFs.length === 0) {
-                    container.innerHTML = '<p>No PDFs in Poetry section yet.</p>';
+                if (mathPDFs.length === 0) {
+                    container.innerHTML = '<p>No PDFs in Math section yet.</p>';
                     return;
                 }
                 
                 container.innerHTML = '';
-                poetryPDFs.forEach(pdf => {
+                mathPDFs.forEach(pdf => {
                     const pdfEntry = document.createElement('div');
                     pdfEntry.className = 'pdf-entry';
                     pdfEntry.innerHTML = `
@@ -125,7 +123,7 @@
             return div.innerHTML;
         }
 
-        document.addEventListener('DOMContentLoaded', loadPoetryPDFs);
+        document.addEventListener('DOMContentLoaded', loadMathPDFs);
     </script>
 </body>
 </html>

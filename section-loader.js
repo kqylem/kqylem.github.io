@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'about': 'About',
         'notes': 'Notes',
         'writing': 'Writing',
-        'poetry': 'Poetry',
+        'poetry': 'Writing', // Poetry now redirects to Writing
+        'math': 'Math',
         'game': 'Game',
         'resume': 'Resume',
         'reading-list': 'Reading List'
@@ -42,7 +43,8 @@ function reloadSectionContent() {
         'about': 'About',
         'notes': 'Notes',
         'writing': 'Writing',
-        'poetry': 'Poetry',
+        'poetry': 'Writing', // Poetry now redirects to Writing
+        'math': 'Math',
         'game': 'Game',
         'resume': 'Resume',
         'reading-list': 'Reading List'

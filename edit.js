@@ -609,7 +609,7 @@ function loadSectionOptions() {
     sectionSelect.innerHTML = '';
     
     // Add default sections
-    const defaultSections = ['Notes', 'Writing', 'Poetry', 'About', 'Home', 'Game', 'Resume', 'Reading List'];
+    const defaultSections = ['Notes', 'Writing', 'Math', 'About', 'Home', 'Game', 'Resume', 'Reading List'];
     defaultSections.forEach(section => {
         const option = document.createElement('option');
         option.value = section;

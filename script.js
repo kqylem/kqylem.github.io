@@ -142,7 +142,7 @@ function getSectionUrl(sectionName) {
         'About': 'about.html',
         'Notes': 'notes.html',
         'Writing': 'writing.html',
-        'Poetry': 'poetry.html',
+        'Math': 'math.html',
         'Game': 'game.html',
         'Resume': 'resume.html',
         'Reading List': 'reading-list.html'
