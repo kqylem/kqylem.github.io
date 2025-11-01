@@ -1,23 +1,149 @@
 [
   {
-    "id": 1761973402872,
-    "title": "QRogue / Cupbearer / Winerunner Development Log",
+    "id": 1761974252018,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #21",
     "imageUrl": "",
-    "content": "-Twiddled with the entity information description from look mode. Re-organized some of the description paragraphs, changed up some colors as well. Will have to create dedicated color schemes for menus and things in future; right now just random. \n-FIxed some wierd entity-on-entity combat behavior, like not using held items / weapons correctlty, the weapons getting stuck in bodies, severed limbs not dropping held items, etc. \n-Added blood spatter and bleeding checks to parent body parts of severed body parts. Also made items held correctly drop to floor when a limb containing them is severed. \n-Fixed combat menu interface (in particular, dots). \n-Fixed world generation then embarkation glitch (due to new sites system).",
-    "date": "September 21, 2025"
+    "content": "-Added more dialogue options to the talk system. Specifically, the ability to discuss propensities and beliefs with entities. Still have to wire this up to the argue activity for proper thought generation and relationship effects.\n-Added ability to discuss recent thoughts and events with other entities. They will state their opinions on it in a very simple way right now. Also added a one-depth recursive system to thought discussions; basically entities can communicate the 'telling' of events. So if Entity 1 experiences something and they tell Entity 2 about it, then Entity 2 will gain the thought (listened to Entity 1 recount a tale). Then Entity 2 could communicate this to Entity 3, and so on. Start of a rumor system I suppose. \n-Made hostile enemies refuse to engage in discussions (will potentially add separate yield / submit requests in the future). \n-Added a sleeping mechanic to the game. There's a new sleeping spot furniture flag and a new activity icon for sleeping.",
+    "date": "October 29, 2025"
   },
   {
-    "id": 1761973350724,
-    "title": "QRogue / Cupbearer / Winerunner Development Log",
+    "id": 1761974239941,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #20",
+    "imageUrl": "",
+    "content": "-BUG: when multiple entities under the same look mode cursor, can't select between them (despite listing multiple).\n-Added basic rapport system to account for how conversations go between entities. This gradually sways relationshio levels for the mutable relationshio types.\n-Moved all relationship-related stuff to a new folder; might work on a social simulator soon>\n-Added new talking system. Functions like look mode at first (cursor, move around, can select an entity, etc.) then opens up talk mode full screen. Preliminary stuff there; good-looking event log replica only for dialogue, small viewport (not optimal as of now) shows in the top right. Future spot for dispositions and social awareness bits below that.",
+    "date": "October 27, 2025"
+  },
+  {
+    "id": 1761974226461,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #19",
+    "imageUrl": "",
+    "content": "-Been a while, mostly made performance enhancements, very little in the way of actual content development. \n-Fixed parrying, blocking, dodging mechanics; now they actually semi-work as they are meant. Made them work with wrestling grabs as well (no wrestling moves for now). Need to fine tune some stamina costs so that things don't get out of hand. Balancing the skills will also require some future work and attention. \n-Today fine-tuned some time behavior; made a LOD system for passing large amounts of time; nothing is final, of course, but this will help expedite some developmental testing and works for now. Figured out an issue with the needs system auto-passing large amounts of time at game start. Now things behave as expected.\n-Introduced relationship system between entities; these cover familial and non-familial personal relationships, professional relationships, etc. More to come. \n-Entities have compatability scores and a sort of rough 'rapport' functionality. After certain amount of conversations, chances to build up relationships.\n-Revised socializing / conversations. Now there are chances for broad categories to be selected: basic topics (like the weather) where not much is garnered besides generic familiarity. Then there are propensity / belief discussions, where a random propensity / belief is chosen and then both entities' score is calculated. Depending on their level agreement they may gain or lose rapport. Added argument activity (disagreements of fundamental beliefs can trigger arguments). Need to make arguing more common for more argumentative people (and less so for the converse). Still need to fine tune interactions between specific propensities and beliefs. \n-Fixed an issue where bystanders of conversations would constantly receive thoughts regarding the conversation (as well as the participants themselves who would \"Witness\" social interaction rather than participate directly. This is fixed now; made the conversation event log excluded from the general category. Now only participants accrue thoughts / memories from such events. \n-In regard to the above, \n-Still need to fix auto-socialization with the player character. \n-Flesh out romantic relationships more; I think this will have to come after adding more activities like sleeping / tavern behavior.",
+    "date": "October 26, 2025"
+  },
+  {
+    "id": 1761974204572,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #18",
+    "imageUrl": "",
+    "content": "-Consolidated appearance, aging, scaling of body tissues; fixed body heights, volumes, descriptions. These are the unified body system, unified scaling system, and the unified appearance system. \n-Removed lots of species-specific dependencies spread sparsely around the game files; trying to get to the point where all that is necessary to add a new creature / entity is just dropping in a new template file; also want to be able to edit and make changes from one place (as opposed to many). \n-New demo maker for species; makes testing out and ensuring info for species is correct much easier.\n-Introduced new 'Attribute' system with several types of attributes in general categories; these will replace the 'stats' which have been used thus far. Default values and ranges for species, age taken into consideration, as well as body composition.",
+    "date": "October 6, 2025"
+  },
+  {
+    "id": 1761974190104,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #17",
+    "imageUrl": "",
+    "content": "-After a long week of optimizations to the rendering pipeline, things are looking better; switched to an OpenGL + Pygame rendering scheme. Getitng decent frames; still stutters on movement but c'est la vie. \n-Made trees solid (finally).\n-Added some mosses, grasses, lichens, sedges, etc. to the surface biome placement system.\n-Fixed missing tree bug (now all species properly spawn). \n-Cleaned up map maker rendering. Still slow but much better.",
+    "date": "October 5, 2025"
+  },
+  {
+    "id": 1761974177600,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #16",
+    "imageUrl": "",
+    "content": "-Added a plethora of tree species and shapes to the game; added biome-specific spawning. \n-Fixed look and non-look mode vision calculations; now they match up when on the same z-level. \n-Made tree trunks properly opaque.",
+    "date": "September 30, 2025"
+  },
+  {
+    "id": 1761974161281,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #15",
+    "imageUrl": "",
+    "content": "-The past few days have been filled with lots of stress; was trying to really figure out how to optimize rendering for the game, as it seemed like the greatest bottleneck to overall FPS and loading times. This proved to be the case, and after many hours of fuddling around with vectorization and numpy silliness, doing away with Python loops, etc., some progress has been made. In addition, some world gen. stuff was tocuhed, though not appreciably. \n-Fixed title screen. \n-Fixed some wrestling combat bugs with intent creation errors. Fixed.\n-Fixed game state issues with the debug zone and map maker (game states not properly closing). Also fixed the map maker UI to automatically re-render when things are placed.",
+    "date": "September 29, 2025"
+  },
+  {
+    "id": 1761974105870,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #14",
+    "imageUrl": "",
+    "content": "-Messed around with performance configurations and fixes. Identified some issues, not much of a noticeable increase in performance.\n-Fixed some buffering errors and infinite loops in the AI system; in particular for entities lacking an inventory.\n-Cleaned up a lot of debug prints to the terminal.",
+    "date": "September 27, 2025"
+  },
+  {
+    "id": 1761974093378,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #13",
+    "imageUrl": "",
+    "content": "-Implemented thought, emotion, and memory system, as well as preliminary stress system. Thoughts are initiated upon experience of events (right now just those events logged into the event logging system). Certain event types are filtered out, others are not. Each event triggers a certain thought depending on the context, and depending on the personality of the entity experiencing the thought, an emotion is triggered based on the strength of the thought. High enough levels will commit the thought to memory, where they can be remembered in the future.\n-Added memory and thought display to the entity info ui panel.",
+    "date": "September 26, 2025"
+  },
+  {
+    "id": 1761974079830,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #12",
+    "imageUrl": "",
+    "content": "-Added basic activity system for entities with professions as they gp from room type to room type. Entities now idle around their rooms if no other activities are assigned. In taverns, when there are multiple entities present, they may chat with one another occasionally. Still have to add an overlay of some kind (flashing icon) to indicate activity.",
+    "date": "September 25, 2025"
+  },
+  {
+    "id": 1761974067528,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #11",
+    "imageUrl": "",
+    "content": "-Made cartilage a structural tissue; this means that ears can be properly severed now (whereas before they had no structural tissues, and so the severance check wasn't properly working). \n-Made wrestling grapples and grabs automatically cease upon death of the defending or grappling entity. \n-Implemented grapple breaking success / failure and appropriate logging for entities. Now there is a chance entities will expend some time trying to break free from a grapple. \n-Spent a long time fiddling with the combat resolution and physics system to get pain and stunning working properly; before it wasn't considering total pain from a single attack (including root and recursive calls to the resolve attack). Fixed to now consider ALL calls simultaneously.\n-Implemented jamming of bones into other soft organs, like ribs into lungs, skull into brain, etc. \n-Made blunt weaponry more viable; now blunt attacks correctly transmute lots of force through tissue layers. For instance, a mace bash to the unarmored head is devastating for the brain.\n-Fixed multiple weapon glitch where combat logs were describing wrong weapons (e..g thrusts with an axe when holding both an axe and a spear). \n-Added windpipe specific logic and suffocation if severe damage is applied.",
+    "date": "September 23, 2025"
+  },
+  {
+    "id": 1761974054470,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #10",
     "imageUrl": "",
     "content": "-Fixed bug with the event logs for combat not passing relevant attacking part information (e.g. generic 'body' or generic 'hand' passed in for punches; should be 'left hand' or specific body part dervied from the attacking entity).\n-Cleaned up some useless code in the combat.py file. \n-Overhauled the combat positioning and targeting system; now height values and reaches for different attacks have real effects on attack difficulty and the squareness of the attack. No longer are head-bashes to the toes possible between two equal-sized humans, for instance. \n-Made unconsciousness automatically disable any stuns or stunning effects. Also made it so that stuns are not possible while unconscious. \n-Severed limbs flying about no longer cause damage to entities struck by them.\n-Fixed parrying and blocking mechanics to match others; now parries and blocks fast forward time to contact, and automatically roll to consider failure or success; likewise parrying and blocking for entities follows same logic. Fixed bug where unconscious enemies were parrying and blocking.",
     "date": "September 22, 2025"
   },
   {
-    "id": 1761973265501,
-    "title": "QRogue / Cupbearer / Winerunner Development Log",
+    "id": 1761974040880,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #9",
     "imageUrl": "",
-    "content": "-Made cartilage a structural tissue; this means that ears can be properly severed now (whereas before they had no structural tissues, and so the severance check wasn't properly working). \n-Made wrestling grapples and grabs automatically cease upon death of the defending or grappling entity. \n-Implemented grapple breaking success / failure and appropriate logging for entities. Now there is a chance entities will expend some time trying to break free from a grapple. \n-Spent a long time fiddling with the combat resolution and physics system to get pain and stunning working properly; before it wasn't considering total pain from a single attack (including root and recursive calls to the resolve attack). Fixed to now consider ALL calls simultaneously.\n-Implemented jamming of bones into other soft organs, like ribs into lungs, skull into brain, etc. \n-Made blunt weaponry more viable; now blunt attacks correctly transmute lots of force through tissue layers. For instance, a mace bash to the unarmored head is devastating for the brain.\n-Fixed multiple weapon glitch where combat logs were describing wrong weapons (e..g thrusts with an axe when holding both an axe and a spear). \n-Added windpipe specific logic and suffocation if severe damage is applied.",
-    "date": "September 23, 2025"
+    "content": "-Twiddled with the entity information description from look mode. Re-organized some of the description paragraphs, changed up some colors as well. Will have to create dedicated color schemes for menus and things in future; right now just random. \n-FIxed some wierd entity-on-entity combat behavior, like not using held items / weapons correctlty, the weapons getting stuck in bodies, severed limbs not dropping held items, etc. \n-Added blood spatter and bleeding checks to parent body parts of severed body parts. Also made items held correctly drop to floor when a limb containing them is severed. \n-Fixed combat menu interface (in particular, dots). \n-Fixed world generation then embarkation glitch (due to new sites system).",
+    "date": "September 21, 2025"
+  },
+  {
+    "id": 1761974020353,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #8",
+    "imageUrl": "",
+    "content": "-Fixed AI bug where profession-based AI was conflicting with non-profession entities (like generic hostile humans, adders, rattlesnakes, etc.). Now they properly display combat behaviors. Was a wierd bug.\n-Fixed blood spatter visual effects to only play when actual bleeding / cuts are occuring. Now punches don't cause massive bursts of blood to spray, which is good. \n-Made stuns and stunning effects last much shorter (previously could be 5 or so seconds, now capped at 3 seconds maximum). \n-Added logic and event logging to support npc-on-npc combat; fixed AI detection being buggy.\n-Added a wrestling move; made wrestling moves more common? \n-Fixed overwhelming pain reduction system, now pain should stack and grow normally, with regular unconsciousness periods. \n-Fixed outrageous blood dropping levels; no more swimming in blood pools from missing limbs or heavy bleeding.\n-Made severed body part items inherit the color of the entity's symbol. \n-Removed syndrome application event logs (moved to the debug log). \n-Took a while fixing some relative positioning and height calculations with regard to the liquid coverage / immersion system; now proper heights are taken into account and extreme coverage doesn't come about from mere puddles of liquid.",
+    "date": "September 20, 2025"
+  },
+  {
+    "id": 1761974002113,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #7",
+    "imageUrl": "",
+    "content": "-Added profession system; implemented schedule system for professions; implemented belief-based preferences for different recreational acitivities during leisure time. Also added pathfinding between rooms, integrated with the entity movement and existing AI system. Importantly, when attacked, combat AI (fleeing, pursuing) kick in and continue; after a period of no combat, they return.",
+    "date": "September 19, 2025"
+  },
+  {
+    "id": 1761973988193,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #6",
+    "imageUrl": "",
+    "content": "-Added propensities section to (for now) human entities. Propensitiites differ from beliefs in that propensities dictate how entities react and act in the game (rather than what they believe in). Propensities can also conflict with beliefs (and this is successfully?) logged in the entity info panel. \n-Changed the entity info popup to use color strings rather than color pair integers (layover from previous curses implementation). In fact, changed all of the ui folder files to use the new string-based color names as opposed to the old legacy hardcoded integers for color pairs. Much more readable and quick to edit.",
+    "date": "September 18, 2025"
+  },
+  {
+    "id": 1761973961372,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #5",
+    "imageUrl": "",
+    "content": "-Touched up and made the controls page more thorough; tabbable categories for ease of use.\n-Added societal implementations: civilizations, groups. Civilizations are broader conglomerates of entities, with positions, controlled sites.  Each entity can only be attached to one civilization at a time. Groups are smaller, more general; added group roles, controlled locations, entities. Groups can come equipped with parent civilizations.\n-Added beliefs section to begin the personality module. Beliefs are inherited from civilizations and can be alterered by groups. Entities which aren't attached to civilizations come up with their onw belief system. Beliefs are integers associated with specifc topics, like love, law, justice, etc. Entities can either have high or low or neutral regard for these topics.",
+    "date": "September 16, 2025"
+  },
+  {
+    "id": 1761973948960,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #4",
+    "imageUrl": "",
+    "content": "-Fixed up the combat height issues from last night; things working smoothly now with combat postiioning, angles, etc. \n-Fixed the liquid immersion system to properly handle new volume and height calculations (makes much more sense now). \n-Overhauled the liquid and swimming mechanics; now swimming costs more stamina in general; also, swimming is calculated via total body coverage / immersion. The issue where swimming stance wasn't properly set is now cleared up and works correctly. Upon complete loss of stamina while swimming, entities begin suffocating and eventually drown. \n-Added base movement speeds for entities in the template, wired into movement system. Cleaned up some useless code in the entity_movement.py file. \n-Added preliminary controls page accessible via '?' from in-game.",
+    "date": "September 15, 2025"
+  },
+  {
+    "id": 1761973936218,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #3",
+    "imageUrl": "",
+    "content": "-Made proper body volume (in cm3) for entities, calculated per body part with defaults.\n-Made age system for entities with variable average body sizes, ranges, etc. This age system progresses automatically based on game-time to scale up sizes of entities.\n-Ensured women and children don't grow facial hair.\n-Made blood volume contingent on body volume.\n-Ensured entity appearance and statistical information appears in template files.\n-Created map editor folder and moved relevant files; created combat folder and moved relevant files. \n-Overhauled entity height system (collated with aging and body volume system above); realistic heights for different entities. Fixed stacking relative positioning bonuses for entity bodies. Wired into combat system (height bonuses and distance bonuses).",
+    "date": "September 14, 2025"
+  },
+  {
+    "id": 1761973894983,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #2",
+    "imageUrl": "",
+    "content": "-Made items have liquid background highlight when on same tile as a liquid.",
+    "date": "September 13, 2025"
+  },
+  {
+    "id": 1761973842207,
+    "title": "QRogue / Cupbearer / Winerunner Development Log #1",
+    "imageUrl": "",
+    "content": "-Added flashing animation cycling between multiple entities or items on the same tile. \n-Made slopes and stairs visible through any liquid depth (extensible for future, can add any important navigational elements).",
+    "date": "September 12, 2025"
   }
 ]
