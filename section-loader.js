@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
         'notes': 'Notes',
         'writing': 'Writing',
         'poetry': 'Poetry',
-        'game': 'Game'
+        'game': 'Game',
+        'resume': 'Resume',
+        'reading-list': 'Reading List'
     };
     
     const sectionName = pageToSection[pageName];
@@ -41,11 +43,55 @@ function reloadSectionContent() {
         'notes': 'Notes',
         'writing': 'Writing',
         'poetry': 'Poetry',
-        'game': 'Game'
+        'game': 'Game',
+        'resume': 'Resume',
+        'reading-list': 'Reading List'
     };
     const sectionName = pageToSection[pageName];
     if (sectionName) {
-        loadSectionContent(sectionName);
+        loadSectionContentForPage(sectionName);
+    }
+}
+
+// Load section content for a specific page
+async function loadSectionContentForPage(sectionName) {
+    const container = document.getElementById('section-content') || document.querySelector('.section-content');
+    if (!container) return;
+
+    try {
+        // Try to load from JSON file first
+        const response = await fetch('section-content.json');
+        if (response.ok) {
+            const sections = await response.json();
+            const content = sections[sectionName] || '';
+            
+            if (content) {
+                // Check if content contains HTML tags (like <img>)
+                if (content.includes('<') && content.includes('>')) {
+                    container.innerHTML = content;
+                } else {
+                    container.innerHTML = formatContent(content);
+                }
+                renderMathJax(container);
+                return;
+            }
+        }
+    } catch (error) {
+        console.log('Could not load section-content.json');
+    }
+    
+    // Fallback to localStorage
+    const sections = JSON.parse(localStorage.getItem('sectionContent') || '{}');
+    const content = sections[sectionName] || '';
+    
+    if (content) {
+        // Check if content contains HTML tags (like <img>)
+        if (content.includes('<') && content.includes('>')) {
+            container.innerHTML = content;
+        } else {
+            container.innerHTML = formatContent(content);
+        }
+        renderMathJax(container);
     }
 }
 
@@ -65,7 +111,13 @@ async function loadSectionContent(sectionName) {
             const content = sections[sectionName] || '';
             
             if (content) {
-                container.innerHTML = formatContent(content);
+                // Check if content contains HTML tags (like <img>)
+                if (content.includes('<') && content.includes('>')) {
+                    container.innerHTML = content;
+                } else {
+                    container.innerHTML = formatContent(content);
+                }
+                renderMathJax(container);
                 return;
             }
         }
@@ -78,7 +130,22 @@ async function loadSectionContent(sectionName) {
     const content = sections[sectionName] || '';
     
     if (content) {
-        container.innerHTML = formatContent(content);
+        // Check if content contains HTML tags (like <img>)
+        if (content.includes('<') && content.includes('>')) {
+            container.innerHTML = content;
+        } else {
+            container.innerHTML = formatContent(content);
+        }
+        renderMathJax(container);
+    }
+}
+
+// Render MathJax in content
+function renderMathJax(element) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([element]).catch(function(err) {
+            console.log('MathJax rendering error:', err);
+        });
     }
 }
 

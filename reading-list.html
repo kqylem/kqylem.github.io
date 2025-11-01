@@ -50,7 +50,6 @@
                         <li><a href="poetry.html" class="nav-link">Poetry</a></li>
                         <li><a href="reading-list.html" class="nav-link active">Reading List</a></li>
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
-                        <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
                         <li><a href="edit.html" class="nav-link">Edit</a></li>
                     </ul>
@@ -64,63 +63,8 @@
 
                 <div class="content-section">
                     <div class="section-content">
-                        <p>My reading list with books I've read or plan to read.</p>
+                        <p>My reading list with books I've read or plan to read. To add entries, go to the <a href="edit.html">Edit</a> section.</p>
                         
-                        <!-- Password Protected Entry Form -->
-                        <div id="reading-auth">
-                            <div class="password-form">
-                                <h2>Author Access Required</h2>
-                                <p>You need author access to add entries.</p>
-                                <input type="password" id="reading-password-input" class="password-input" placeholder="Enter author password">
-                                <button id="reading-password-submit" class="password-submit">Submit</button>
-                                <div id="reading-password-error" class="error-message"></div>
-                            </div>
-                        </div>
-
-                        <div id="reading-form-container" class="blog-form-container" style="display: none;">
-                            <h3>Add New Entry</h3>
-                            <form id="reading-entry-form" class="blog-form">
-                                <div class="form-group">
-                                    <label for="entry-name">Name:</label>
-                                    <input type="text" id="entry-name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="entry-author">Author:</label>
-                                    <input type="text" id="entry-author" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="entry-tags">Tags (comma-separated):</label>
-                                    <input type="text" id="entry-tags" placeholder="cozy, good, quick">
-                                    <small style="font-size: 11px; color: #666;">Available: cozy, good, bad, quick, beautiful, boring, sad, humorous, whimsical, dense, loaded, arcane, esoteric</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="entry-complete">Complete:</label>
-                                    <select id="entry-complete" required>
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="entry-date">Date:</label>
-                                    <input type="date" id="entry-date" required>
-                                </div>
-                                <button type="submit" class="submit-btn">Add Entry (Local)</button>
-                                <button type="button" id="reading-export" class="submit-btn" style="margin-left: 10px; background-color: #ccffcc;">Export for GitHub</button>
-                                <button type="button" id="reading-logout" class="submit-btn" style="margin-left: 10px; background-color: #ffcccc;">Logout</button>
-                            </form>
-                            <div id="reading-export-result" style="margin-top: 15px; padding: 10px; background-color: #f0f0f0; border: 1px solid var(--border-color); display: none;">
-                                <h4>Copy this JSON to reading-list.json:</h4>
-                                <textarea id="reading-export-json" style="width: 100%; height: 200px; font-family: monospace; font-size: 12px;" readonly></textarea>
-                                <p style="font-size: 12px; margin-top: 10px; color: #666;">
-                                    1. Copy the JSON above<br>
-                                    2. Open reading-list.json in your repository<br>
-                                    3. Replace its contents with this JSON<br>
-                                    4. Commit and push to GitHub<br>
-                                    5. Everyone will see your reading list!
-                                </p>
-                            </div>
-                        </div>
-
                         <h3>Books</h3>
                         <div id="reading-table-container">
                             <p>Loading reading list...</p>

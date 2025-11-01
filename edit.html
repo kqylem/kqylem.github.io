@@ -50,7 +50,6 @@
                         <li><a href="poetry.html" class="nav-link">Poetry</a></li>
                         <li><a href="reading-list.html" class="nav-link">Reading List</a></li>
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
-                        <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
                         <li><a href="game.html" class="nav-link">Game</a></li>
                         <li><a href="edit.html" class="nav-link active">Edit</a></li>
                     </ul>
@@ -197,9 +196,14 @@
                             <div id="section-editor" style="display: none;">
                                 <div class="form-group">
                                     <label>Section Content:</label>
+                                    <div style="margin-bottom: 10px;">
+                                        <button type="button" id="insert-image-url" class="submit-btn" style="background-color: #add8e6; margin-right: 10px;">Insert Image (URL)</button>
+                                        <button type="button" id="upload-image" class="submit-btn" style="background-color: #add8e6;">Upload Image</button>
+                                        <input type="file" id="image-file-input" accept="image/*" style="display: none;">
+                                    </div>
                                     <textarea id="section-content-text" rows="15" style="font-family: monospace; font-size: 12px;"></textarea>
                                     <small style="font-size: 11px; color: #666;">
-                                        Format: Each paragraph on a new line. Headings use ===Heading=== or ###Heading###. Bullets use - item. Save will update the section.
+                                        Format: Each paragraph on a new line. Headings use ===Heading=== or ###Heading###. Bullets use - item. Images: Use HTML &lt;img src="url" alt="description"&gt; or click buttons above. Save will update the section.
                                     </small>
                                 </div>
                                 <button type="button" id="save-section" class="submit-btn">Save Section</button>

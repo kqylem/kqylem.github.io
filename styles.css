@@ -70,7 +70,11 @@ body.dark-mode .pdf-item {
 
 body.dark-mode .nav-link.active,
 body.dark-mode .nav-link:hover {
-    background-color: #333333;
+    background-color: #1a4d7a;
+}
+
+body.dark-mode .nav-link.active {
+    background-image: linear-gradient(to right, #1a4d7a, #2a5a8a);
 }
 
 * {
@@ -234,16 +238,16 @@ body.bios-font h6 {
 }
 
 .nav-link:hover {
-    background-color: #e8e8e8;
+    background-color: #e6f2ff;
     text-decoration: underline;
     border-left-color: var(--link-color);
 }
 
 .nav-link.active {
-    background-color: #e8e8e8;
+    background-color: #cce5ff;
     font-weight: bold;
     border-left-color: var(--link-color);
-    background-image: linear-gradient(to right, #e8e8e8, #f0f0f0);
+    background-image: linear-gradient(to right, #cce5ff, #e6f2ff);
 }
 
 .nav-link:visited {

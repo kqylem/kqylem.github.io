@@ -317,6 +317,9 @@ function initializeSectionEditor() {
     const exportBtn = document.getElementById('section-export');
     const exportResult = document.getElementById('section-export-result');
     const exportJson = document.getElementById('section-export-json');
+    const insertImageUrlBtn = document.getElementById('insert-image-url');
+    const uploadImageBtn = document.getElementById('upload-image');
+    const imageFileInput = document.getElementById('image-file-input');
 
     if (!sectionSelect) return;
 
@@ -332,6 +335,67 @@ function initializeSectionEditor() {
             if (sectionEditor) sectionEditor.style.display = 'none';
         }
     });
+
+    // Insert Image URL
+    if (insertImageUrlBtn && sectionContentText) {
+        insertImageUrlBtn.addEventListener('click', function() {
+            const url = prompt('Enter image URL:');
+            if (!url) return;
+            
+            const alt = prompt('Enter image description (alt text):', '');
+            const imgTag = `<img src="${url}" alt="${alt || ''}" style="max-width: 100%; height: auto;">`;
+            
+            const cursorPos = sectionContentText.selectionStart || sectionContentText.value.length;
+            const textBefore = sectionContentText.value.substring(0, cursorPos);
+            const textAfter = sectionContentText.value.substring(cursorPos);
+            
+            sectionContentText.value = textBefore + imgTag + '\n\n' + textAfter;
+            
+            // Set cursor after inserted image
+            const newCursorPos = cursorPos + imgTag.length + 2;
+            sectionContentText.focus();
+            sectionContentText.setSelectionRange(newCursorPos, newCursorPos);
+        });
+    }
+
+    // Upload Image (convert to base64)
+    if (uploadImageBtn && imageFileInput && sectionContentText) {
+        uploadImageBtn.addEventListener('click', function() {
+            imageFileInput.click();
+        });
+
+        imageFileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64 = e.target.result;
+                const alt = prompt('Enter image description (alt text):', file.name);
+                const imgTag = `<img src="${base64}" alt="${alt || ''}" style="max-width: 100%; height: auto;">`;
+                
+                const cursorPos = sectionContentText.selectionStart || sectionContentText.value.length;
+                const textBefore = sectionContentText.value.substring(0, cursorPos);
+                const textAfter = sectionContentText.value.substring(cursorPos);
+                
+                sectionContentText.value = textBefore + imgTag + '\n\n' + textAfter;
+                
+                // Set cursor after inserted image
+                const newCursorPos = cursorPos + imgTag.length + 2;
+                sectionContentText.focus();
+                sectionContentText.setSelectionRange(newCursorPos, newCursorPos);
+
+                // Reset file input
+                imageFileInput.value = '';
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 
     if (saveBtn && sectionContentText) {
         saveBtn.addEventListener('click', function() {

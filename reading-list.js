@@ -21,8 +21,6 @@ const TAG_COLORS = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    initializeReadingAuth();
-    initializeReadingForm();
     loadReadingList();
 });
 
