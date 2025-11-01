@@ -1,2 +1,238 @@
-[]
-
+[
+  {
+    "id": 1761979887189,
+    "name": "Life for Sale",
+    "author": "Yukio Mishima",
+    "tags": [
+      "quick",
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "October 7, 2024",
+    "dateValue": "2024-10-08",
+    "timestamp": 1728345600000
+  },
+  {
+    "id": 1761979859336,
+    "name": "The Brief and Wondrous Life of Oscar Wao",
+    "author": "Junot Diaz",
+    "tags": [
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "October 16, 2024",
+    "dateValue": "2024-10-17",
+    "timestamp": 1729123200000
+  },
+  {
+    "id": 1761979801760,
+    "name": "Other Men's Daughters",
+    "author": "Richard Stern",
+    "tags": [
+      "beautiful",
+      "loaded"
+    ],
+    "complete": "Yes",
+    "date": "October 28, 2024",
+    "dateValue": "2024-10-29",
+    "timestamp": 1730160000000
+  },
+  {
+    "id": 1761979753244,
+    "name": "The Poisonwood Bible",
+    "author": "Barbara Kingsolver",
+    "tags": [
+      "good",
+      "dense"
+    ],
+    "complete": "Yes",
+    "date": "November 27, 2024",
+    "dateValue": "2024-11-28",
+    "timestamp": 1732752000000
+  },
+  {
+    "id": 1761979716714,
+    "name": "Indian Summer",
+    "author": "William Dean Howells",
+    "tags": [
+      "boring",
+      "arcane"
+    ],
+    "complete": "No",
+    "date": "December 5, 2024",
+    "dateValue": "2024-12-06",
+    "timestamp": 1733443200000
+  },
+  {
+    "id": 1761979679269,
+    "name": "Cannery Row",
+    "author": "John Steinbeck",
+    "tags": [
+      "cozy",
+      "quick",
+      "humorous"
+    ],
+    "complete": "Yes",
+    "date": "December 11, 2024",
+    "dateValue": "2024-12-12",
+    "timestamp": 1733961600000
+  },
+  {
+    "id": 1761979640206,
+    "name": "The Vegetarian",
+    "author": "Han Kang",
+    "tags": [
+      "quick",
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "December 19, 2024",
+    "dateValue": "2024-12-20",
+    "timestamp": 1734652800000
+  },
+  {
+    "id": 1761979571614,
+    "name": "Things Fall Apart",
+    "author": "Chinua Achebe",
+    "tags": [
+      "beautiful",
+      "quick",
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "December 24, 2024",
+    "dateValue": "2024-12-25",
+    "timestamp": 1735084800000
+  },
+  {
+    "id": 1761979533524,
+    "name": "Crime and Punishment",
+    "author": "Fyodor Dostoevsky",
+    "tags": [
+      "dense",
+      "loaded",
+      "sad"
+    ],
+    "complete": "Yes",
+    "date": "January 29, 2025",
+    "dateValue": "2025-01-30",
+    "timestamp": 1738195200000
+  },
+  {
+    "id": 1761979491628,
+    "name": "Annie John",
+    "author": "Jamaica Kincaid",
+    "tags": [
+      "quick",
+      "beautiful"
+    ],
+    "complete": "Yes",
+    "date": "February 11, 2025",
+    "dateValue": "2025-02-12",
+    "timestamp": 1739318400000
+  },
+  {
+    "id": 1761979458837,
+    "name": "The White",
+    "author": "Deborah Larsen",
+    "tags": [
+      "boring"
+    ],
+    "complete": "Yes",
+    "date": "July 30, 2025",
+    "dateValue": "2025-07-31",
+    "timestamp": 1753920000000
+  },
+  {
+    "id": 1761979423534,
+    "name": "Love in the Time of Cholera",
+    "author": "Gabriel Garcia Marquez",
+    "tags": [
+      "beautiful"
+    ],
+    "complete": "No",
+    "date": "August 5, 2025",
+    "dateValue": "2025-08-06",
+    "timestamp": 1754438400000
+  },
+  {
+    "id": 1761979383769,
+    "name": "Lord Jim",
+    "author": "Joseph Conrad",
+    "tags": [
+      "dense",
+      "arcane"
+    ],
+    "complete": "No",
+    "date": "July 22, 2025",
+    "dateValue": "2025-07-23",
+    "timestamp": 1753228800000
+  },
+  {
+    "id": 1761979324947,
+    "name": "The Crying of Lot 49",
+    "author": "Thomas Pynchon",
+    "tags": [
+      "quick",
+      "esoteric",
+      "loaded",
+      "humorous"
+    ],
+    "complete": "Yes",
+    "date": "September 4, 2025",
+    "dateValue": "2025-09-05",
+    "timestamp": 1757030400000
+  },
+  {
+    "id": 1761979279788,
+    "name": "The Ark Sakura",
+    "author": "Kobo Abe",
+    "tags": [
+      "quick",
+      "esoteric",
+      "humorous"
+    ],
+    "complete": "Yes",
+    "date": "September 10, 2025",
+    "dateValue": "2025-09-11",
+    "timestamp": 1757548800000
+  },
+  {
+    "id": 1761979249011,
+    "name": "God's Country",
+    "author": "Percival Everett",
+    "tags": [
+      "quick"
+    ],
+    "complete": "Yes",
+    "date": "September 16, 2025",
+    "dateValue": "2025-09-17",
+    "timestamp": 1758067200000
+  },
+  {
+    "id": 1761979184433,
+    "name": "East of Eden",
+    "author": "John Steinbeck",
+    "tags": [
+      "beautiful",
+      "loaded",
+      "sad"
+    ],
+    "complete": "Yes",
+    "date": "September 23, 2025",
+    "dateValue": "2025-09-24",
+    "timestamp": 1758672000000
+  },
+  {
+    "id": 1761966563720,
+    "name": "Inherent Vice",
+    "author": "Thomas Pynchon",
+    "tags": [
+      "whimsical",
+      "dense",
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "October 21, 2025"
+  }
+]
