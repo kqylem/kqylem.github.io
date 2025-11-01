@@ -1,10 +1,23 @@
 [
   {
-    "id": 1,
-    "title": "Welcome to My Website",
-    "content": "This is a sample post. You can edit or remove this by editing the blog-posts.json file.",
+    "id": 1761973402872,
+    "title": "QRogue / Cupbearer / Winerunner Development Log",
     "imageUrl": "",
-    "date": "January 1, 2024"
+    "content": "-Twiddled with the entity information description from look mode. Re-organized some of the description paragraphs, changed up some colors as well. Will have to create dedicated color schemes for menus and things in future; right now just random. \n-FIxed some wierd entity-on-entity combat behavior, like not using held items / weapons correctlty, the weapons getting stuck in bodies, severed limbs not dropping held items, etc. \n-Added blood spatter and bleeding checks to parent body parts of severed body parts. Also made items held correctly drop to floor when a limb containing them is severed. \n-Fixed combat menu interface (in particular, dots). \n-Fixed world generation then embarkation glitch (due to new sites system).",
+    "date": "September 21, 2025"
+  },
+  {
+    "id": 1761973350724,
+    "title": "QRogue / Cupbearer / Winerunner Development Log",
+    "imageUrl": "",
+    "content": "-Fixed bug with the event logs for combat not passing relevant attacking part information (e.g. generic 'body' or generic 'hand' passed in for punches; should be 'left hand' or specific body part dervied from the attacking entity).\n-Cleaned up some useless code in the combat.py file. \n-Overhauled the combat positioning and targeting system; now height values and reaches for different attacks have real effects on attack difficulty and the squareness of the attack. No longer are head-bashes to the toes possible between two equal-sized humans, for instance. \n-Made unconsciousness automatically disable any stuns or stunning effects. Also made it so that stuns are not possible while unconscious. \n-Severed limbs flying about no longer cause damage to entities struck by them.\n-Fixed parrying and blocking mechanics to match others; now parries and blocks fast forward time to contact, and automatically roll to consider failure or success; likewise parrying and blocking for entities follows same logic. Fixed bug where unconscious enemies were parrying and blocking.",
+    "date": "September 22, 2025"
+  },
+  {
+    "id": 1761973265501,
+    "title": "QRogue / Cupbearer / Winerunner Development Log",
+    "imageUrl": "",
+    "content": "-Made cartilage a structural tissue; this means that ears can be properly severed now (whereas before they had no structural tissues, and so the severance check wasn't properly working). \n-Made wrestling grapples and grabs automatically cease upon death of the defending or grappling entity. \n-Implemented grapple breaking success / failure and appropriate logging for entities. Now there is a chance entities will expend some time trying to break free from a grapple. \n-Spent a long time fiddling with the combat resolution and physics system to get pain and stunning working properly; before it wasn't considering total pain from a single attack (including root and recursive calls to the resolve attack). Fixed to now consider ALL calls simultaneously.\n-Implemented jamming of bones into other soft organs, like ribs into lungs, skull into brain, etc. \n-Made blunt weaponry more viable; now blunt attacks correctly transmute lots of force through tissue layers. For instance, a mace bash to the unarmored head is devastating for the brain.\n-Fixed multiple weapon glitch where combat logs were describing wrong weapons (e..g thrusts with an axe when holding both an axe and a spear). \n-Added windpipe specific logic and suffocation if severe damage is applied.",
+    "date": "September 23, 2025"
   }
 ]
-
