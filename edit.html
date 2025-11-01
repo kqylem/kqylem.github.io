@@ -28,10 +28,6 @@
                         <button id="search-btn" class="search-btn">Go</button>
                     </div>
                     <label class="font-toggle">
-                        <input type="checkbox" id="bios-font-toggle">
-                        IBM BIOS Font
-                    </label>
-                    <label class="font-toggle">
                         <input type="checkbox" id="dark-mode-toggle">
                         Dark Mode
                     </label>
@@ -249,9 +245,31 @@
                                         <input type="file" id="image-file-input" accept="image/*" style="display: none;">
                                     </div>
                                     <textarea id="section-content-text" rows="15" style="font-family: monospace; font-size: 12px;"></textarea>
-                                    <small style="font-size: 11px; color: #666;">
-                                        Format: Each paragraph on a new line. Headings use ===Heading=== or ###Heading###. Bullets use - item. Images: Use HTML &lt;img src="url" alt="description"&gt; or click buttons above. Save will update the section.
-                                    </small>
+                                    <div style="margin-top: 10px; padding: 15px; background-color: #f9f9f9; border: 1px solid var(--border-color); border-radius: 3px;">
+                                        <h4 style="margin-top: 0; font-size: 14px; color: var(--text-color);">📝 Formatting Guide:</h4>
+                                        <div style="font-size: 12px; line-height: 1.8; color: #555;">
+                                            <strong>Plain Text Format (Automatic HTML):</strong><br>
+                                            • <code>===Heading===</code> → Large heading (H3)<br>
+                                            • <code>###Subheading###</code> → Small heading (H4)<br>
+                                            • <code>- item</code> → Bullet point (starts a list)<br>
+                                            • Regular text → Paragraph<br>
+                                            • Empty line → Line break<br><br>
+                                            <strong>HTML Format (Direct):</strong><br>
+                                            • <code>&lt;img src="url" alt="text"&gt;</code> → Image<br>
+                                            • <code>&lt;a href="url"&gt;Link Text&lt;/a&gt;</code> → Link<br>
+                                            • <code>&lt;strong&gt;bold&lt;/strong&gt;</code> → <strong>Bold text</strong><br>
+                                            • <code>&lt;em&gt;italic&lt;/em&gt;</code> → <em>Italic text</em><br>
+                                            • <code>&lt;ul&gt;&lt;li&gt;item&lt;/li&gt;&lt;/ul&gt;</code> → Bullet list<br>
+                                            • <code>&lt;ol&gt;&lt;li&gt;item&lt;/li&gt;&lt;/ol&gt;</code> → Numbered list<br>
+                                            • <code>&lt;h1&gt;Title&lt;/h1&gt;</code> through <code>&lt;h6&gt;</code> → Headings<br>
+                                            • <code>&lt;br&gt;</code> → Line break<br>
+                                            • <code>&lt;p&gt;paragraph&lt;/p&gt;</code> → Paragraph<br><br>
+                                            <strong>LaTeX Math:</strong><br>
+                                            • <code>$inline math$</code> → Inline formula<br>
+                                            • <code>$$display math$$</code> → Block formula<br>
+                                            <em>Note: If you use HTML tags, the plain text formatting is disabled for that content.</em>
+                                        </div>
+                                    </div>
                                 </div>
                                 <button type="button" id="save-section" class="submit-btn">Save Section</button>
                                 <button type="button" id="section-export" class="submit-btn" style="margin-left: 10px; background-color: #ccffcc;">Export for GitHub</button>

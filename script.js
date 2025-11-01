@@ -6,54 +6,126 @@ const BLOG_AUTH_STORAGE_KEY = 'blogAuthorAccess';
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    initializeFontToggle();
     initializeDarkMode();
     initializeSearch();
     initializeBlogPosts(); // Only load posts, not create form
     setActiveNavLink();
 });
 
-// Font Toggle (IBM BIOS Font)
-function initializeFontToggle() {
-    const fontToggle = document.getElementById('bios-font-toggle');
-    if (!fontToggle) return;
-
-    // Check if font toggle was previously enabled
-    const savedFontPreference = localStorage.getItem('biosFontEnabled');
-    if (savedFontPreference === 'true') {
-        fontToggle.checked = true;
-        document.body.classList.add('bios-font');
-    }
-
-    // Toggle font on checkbox change
-    fontToggle.addEventListener('change', function() {
-        if (this.checked) {
-            document.body.classList.add('bios-font');
-            localStorage.setItem('biosFontEnabled', 'true');
-        } else {
-            document.body.classList.remove('bios-font');
-            localStorage.setItem('biosFontEnabled', 'false');
-        }
-    });
-}
-
 // Search Functionality
-function initializeSearch() {
+async function initializeSearch() {
     const searchInput = document.getElementById('search-input');
     const searchBtn = document.getElementById('search-btn');
 
     if (!searchInput || !searchBtn) return;
 
-    function performSearch() {
+    async function performSearch() {
         const query = searchInput.value.toLowerCase().trim();
-        if (!query) return;
-
-        // Simple search - redirect to search results or highlight matches
-        // For now, just show an alert (can be enhanced later)
-        if (query.length > 0) {
-            alert('Search functionality: "' + query + '"\n\nThis is a basic search. You can enhance this to search through blog posts and page content.');
-            // Future: Implement actual search through blog posts and pages
+        if (!query) {
+            alert('Please enter a search term.');
+            return;
         }
+
+        const results = [];
+        
+        // Search blog posts (from public JSON only)
+        try {
+            const blogResponse = await fetch('blog-posts.json');
+            if (blogResponse.ok) {
+                const blogPosts = await blogResponse.json();
+                if (Array.isArray(blogPosts)) {
+                    blogPosts.forEach(post => {
+                        const titleMatch = post.title && post.title.toLowerCase().includes(query);
+                        const contentMatch = post.content && post.content.toLowerCase().includes(query);
+                        if (titleMatch || contentMatch) {
+                            results.push({
+                                type: 'Blog Post',
+                                title: post.title,
+                                content: post.content ? post.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...' : '',
+                                url: 'index.html',
+                                date: post.date
+                            });
+                        }
+                    });
+                }
+            }
+        } catch (error) {
+            console.log('Could not search blog posts');
+        }
+
+        // Search section content (from public JSON only)
+        try {
+            const sectionResponse = await fetch('section-content.json');
+            if (sectionResponse.ok) {
+                const sections = await sectionResponse.json();
+                for (const [sectionName, content] of Object.entries(sections)) {
+                    if (content && content.toLowerCase().includes(query)) {
+                        const sectionUrl = getSectionUrl(sectionName);
+                        results.push({
+                            type: 'Section',
+                            title: sectionName,
+                            content: content.replace(/<[^>]*>/g, '').substring(0, 150) + '...',
+                            url: sectionUrl
+                        });
+                    }
+                }
+            }
+        } catch (error) {
+            console.log('Could not search sections');
+        }
+
+        // Search reading list (from public JSON only)
+        try {
+            const readingResponse = await fetch('reading-list.json');
+            if (readingResponse.ok) {
+                const readingList = await readingResponse.json();
+                if (Array.isArray(readingList)) {
+                    readingList.forEach(entry => {
+                        const nameMatch = entry.name && entry.name.toLowerCase().includes(query);
+                        const authorMatch = entry.author && entry.author.toLowerCase().includes(query);
+                        const tagMatch = entry.tags && entry.tags.some(tag => tag.toLowerCase().includes(query));
+                        if (nameMatch || authorMatch || tagMatch) {
+                            results.push({
+                                type: 'Reading List',
+                                title: entry.name + ' by ' + entry.author,
+                                content: 'Tags: ' + (entry.tags ? entry.tags.join(', ') : ''),
+                                url: 'reading-list.html'
+                            });
+                        }
+                    });
+                }
+            }
+        } catch (error) {
+            console.log('Could not search reading list');
+        }
+
+        // Search PDFs (from public JSON only)
+        try {
+            const pdfResponse = await fetch('pdfs.json');
+            if (pdfResponse.ok) {
+                const pdfs = await pdfResponse.json();
+                if (Array.isArray(pdfs)) {
+                    pdfs.forEach(pdf => {
+                        const titleMatch = pdf.title && pdf.title.toLowerCase().includes(query);
+                        const descMatch = pdf.description && pdf.description.toLowerCase().includes(query);
+                        const sectionMatch = pdf.section && pdf.section.toLowerCase().includes(query);
+                        if (titleMatch || descMatch || sectionMatch) {
+                            results.push({
+                                type: 'PDF',
+                                title: pdf.title,
+                                content: pdf.description || '',
+                                url: pdf.id ? 'view-pdf.html?id=' + pdf.id : 'pdfs.html'
+                            });
+                        }
+                    });
+                }
+            }
+        } catch (error) {
+            console.log('Could not search PDFs');
+        }
+
+        // Display results
+        displaySearchResults(query, results);
     }
 
     searchBtn.addEventListener('click', performSearch);
@@ -62,6 +134,77 @@ function initializeSearch() {
             performSearch();
         }
     });
+}
+
+function getSectionUrl(sectionName) {
+    const urlMap = {
+        'Home': 'index.html',
+        'About': 'about.html',
+        'Notes': 'notes.html',
+        'Writing': 'writing.html',
+        'Poetry': 'poetry.html',
+        'Game': 'game.html',
+        'Resume': 'resume.html',
+        'Reading List': 'reading-list.html'
+    };
+    return urlMap[sectionName] || 'index.html';
+}
+
+function displaySearchResults(query, results) {
+    // Remove any existing modal
+    const existingModal = document.getElementById('search-results-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    if (results.length === 0) {
+        alert('No results found for "' + query + '"\n\nOnly public content (from JSON files) is searchable.');
+        return;
+    }
+
+    let resultsHTML = '<h2 style="margin-top: 0; color: var(--text-color);">Search Results for "' + escapeHtml(query) + '"</h2>';
+    resultsHTML += '<p style="color: #666;">Found ' + results.length + ' result(s) in public content</p><ul style="list-style: none; padding: 0; margin: 0;">';
+
+    results.forEach(result => {
+        resultsHTML += '<li style="margin-bottom: 20px; padding: 15px; background-color: #f9f9f9; border-left: 3px solid var(--link-color);">';
+        resultsHTML += '<strong style="color: var(--link-color); font-size: 12px;">[' + escapeHtml(result.type) + ']</strong> ';
+        resultsHTML += '<strong style="color: var(--text-color); display: block; margin-top: 5px;">' + escapeHtml(result.title) + '</strong>';
+        if (result.content) {
+            resultsHTML += '<p style="color: #666; font-size: 12px; margin: 5px 0;">' + escapeHtml(result.content) + '</p>';
+        }
+        if (result.date) {
+            resultsHTML += '<span style="color: #888; font-size: 11px;">' + escapeHtml(result.date) + '</span><br>';
+        }
+        resultsHTML += '<a href="' + escapeHtml(result.url) + '" style="color: var(--link-color); text-decoration: underline; font-size: 13px;">View →</a>';
+        resultsHTML += '</li>';
+    });
+
+    resultsHTML += '</ul>';
+
+    // Create a modal to show results
+    const resultsModal = document.createElement('div');
+    resultsModal.id = 'search-results-modal';
+    resultsModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 10000; overflow-y: auto;';
+    resultsModal.innerHTML = '<div style="max-width: 800px; margin: 50px auto; background-color: var(--bg-color); padding: 30px; border: 2px solid var(--border-color); box-shadow: 0 4px 8px rgba(0,0,0,0.3);">' +
+        resultsHTML +
+        '<button onclick="document.getElementById(\'search-results-modal\').remove()" style="margin-top: 20px; padding: 10px 20px; background-color: var(--link-color); color: white; border: none; cursor: pointer; font-size: 14px;">Close</button>' +
+        '</div>';
+    
+    // Click outside to close
+    resultsModal.addEventListener('click', function(e) {
+        if (e.target === resultsModal) {
+            resultsModal.remove();
+        }
+    });
+    
+    document.body.appendChild(resultsModal);
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 // Dark Mode Toggle
@@ -92,19 +235,31 @@ function initializeDarkMode() {
 
 // Blog Post Management
 function initializeBlogPosts() {
+    // Only handle blog form if we're NOT on the edit page
+    // The edit page has its own handler for the blog form
+    if (window.location.pathname.includes('edit.html')) {
+        // Just load and display posts, don't handle form
+        loadBlogPosts();
+        return;
+    }
+
     const blogForm = document.getElementById('blog-post-form');
-    if (!blogForm) return;
+    if (!blogForm) {
+        // Just load and display posts if no form exists
+        loadBlogPosts();
+        return;
+    }
 
     // Load and display existing posts
     loadBlogPosts();
 
-    // Handle form submission
+    // Handle form submission (only if form exists and not on edit page)
     blogForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const title = document.getElementById('post-title').value;
-        const imageUrl = document.getElementById('post-image').value;
-        const content = document.getElementById('post-content').value;
+        const title = document.getElementById('post-title').value.trim();
+        const imageUrl = document.getElementById('post-image').value.trim();
+        const content = document.getElementById('post-content').value.trim();
 
         if (!title || !content) {
             alert('Please fill in the title and content.');

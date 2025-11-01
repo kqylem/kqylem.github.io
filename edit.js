@@ -94,9 +94,18 @@ function initializeBlogEditor() {
     const blogForm = document.getElementById('blog-post-form');
     if (!blogForm) return;
 
-    blogForm.addEventListener('submit', function(e) {
+    // Remove any existing event listeners by cloning the form
+    const newForm = blogForm.cloneNode(true);
+    blogForm.parentNode.replaceChild(newForm, blogForm);
+    
+    // Get the fresh form reference
+    const freshForm = document.getElementById('blog-post-form');
+    if (!freshForm) return;
+
+    freshForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
+        // Get inputs fresh each time to avoid stale references
         const titleInput = document.getElementById('post-title');
         const contentInput = document.getElementById('post-content');
         const imageInput = document.getElementById('post-image');
@@ -106,17 +115,17 @@ function initializeBlogEditor() {
             return;
         }
 
-        const title = titleInput.value.trim();
-        const content = contentInput.value.trim();
-        const imageUrl = imageInput ? imageInput.value.trim() : '';
+        const title = (titleInput.value || '').trim();
+        const content = (contentInput.value || '').trim();
+        const imageUrl = (imageInput && imageInput.value) ? imageInput.value.trim() : '';
 
-        if (!title) {
+        if (!title || title.length === 0) {
             alert('Please enter a title.');
             titleInput.focus();
             return;
         }
 
-        if (!content) {
+        if (!content || content.length === 0) {
             alert('Please enter content.');
             contentInput.focus();
             return;
