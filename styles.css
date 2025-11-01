@@ -487,7 +487,6 @@ body.dark-mode .section-content ul li::before {
     margin: 15px 0;
     padding: 12px 0;
     padding-left: 25px;
-    border-left: 3px solid var(--border-color);
     position: relative;
 }
 

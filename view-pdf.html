@@ -93,7 +93,7 @@
 
                 <div class="pdf-controls">
                     <button class="pdf-control-btn" onclick="downloadCurrentPDF()">Download</button>
-                    <button class="pdf-control-btn" onclick="window.history.back()">Back</button>
+                    <button class="pdf-control-btn" id="back-btn">Back</button>
                 </div>
 
                 <iframe id="pdf-viewer-frame" class="pdf-viewer-page" src=""></iframe>
@@ -190,8 +190,20 @@
             document.body.removeChild(link);
         }
 
+        // Handle back button
         document.addEventListener('DOMContentLoaded', function() {
             loadPDF();
+            
+            const backBtn = document.getElementById('back-btn');
+            if (backBtn) {
+                backBtn.addEventListener('click', function() {
+                    if (window.history.length > 1) {
+                        window.history.back();
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
         });
     </script>
 </body>
