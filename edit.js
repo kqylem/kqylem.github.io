@@ -354,6 +354,10 @@ function addPDFByFile(title, section, description, file) {
         document.getElementById('pdf-form').reset();
         document.getElementById('file-info').textContent = '';
         alert('PDF saved locally! Export to make it visible to everyone.');
+        // Refresh navigation to reflect new sections
+        if (window.buildDynamicNavigation) {
+            window.buildDynamicNavigation();
+        }
     };
 
     reader.onerror = function() {
@@ -478,6 +482,10 @@ function saveReadingEntry(entry) {
     let entries = JSON.parse(localStorage.getItem('readingList') || '[]');
     entries.unshift(entry);
     localStorage.setItem('readingList', JSON.stringify(entries));
+    // Refresh navigation (Reading List is already a standard section)
+    if (window.buildDynamicNavigation) {
+        window.buildDynamicNavigation();
+    }
 }
 
 // Section Content Editor
@@ -580,6 +588,10 @@ function initializeSectionEditor() {
             const content = sectionContentText.value;
             saveSectionContent(sectionName, content);
             alert('Section content saved! Export to make it visible to everyone.');
+            // Refresh navigation to reflect new sections
+            if (window.buildDynamicNavigation) {
+                window.buildDynamicNavigation();
+            }
         });
     }
 
@@ -725,6 +737,10 @@ function initializeNewSection() {
         
         newSectionForm.reset();
         alert('Section created! Copy the HTML below and create the file in your repository.');
+        // Refresh navigation to show new section
+        if (window.buildDynamicNavigation) {
+            window.buildDynamicNavigation();
+        }
     });
 }
 

@@ -9,8 +9,198 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeDarkMode();
     initializeSearch();
     initializeBlogPosts(); // Only load posts, not create form
+    buildDynamicNavigation();
     setActiveNavLink();
 });
+
+// Build dynamic navigation based on available sections
+async function buildDynamicNavigation() {
+    const navMenu = document.querySelector('.nav-menu ul');
+    if (!navMenu) return;
+
+    // Collect all sections from various sources
+    const sections = new Set();
+
+    // Always-include sections (system pages)
+    const systemSections = [
+        { name: 'Home', url: 'index.html' },
+        { name: 'About', url: 'about.html' }
+    ];
+
+    // Standard content sections that might exist
+    const standardSections = [
+        { name: 'Notes', url: 'notes.html' },
+        { name: 'Writing', url: 'writing.html', displayName: 'Writing & Poetry' },
+        { name: 'Math', url: 'math.html' },
+        { name: 'Reading List', url: 'reading-list.html' },
+        { name: 'Resume', url: 'resume.html' },
+        { name: 'Game', url: 'game.html' }
+    ];
+
+    // Check section-content.json
+    try {
+        const response = await fetch('section-content.json');
+        if (response.ok) {
+            const jsonSections = await response.json();
+            Object.keys(jsonSections).forEach(key => {
+                if (key && key !== 'Poetry') { // Skip Poetry since it's merged with Writing
+                    sections.add(key);
+                }
+            });
+        }
+    } catch (error) {
+        console.log('Could not load section-content.json');
+    }
+
+    // Check localStorage sectionContent
+    try {
+        const localSections = JSON.parse(localStorage.getItem('sectionContent') || '{}');
+        Object.keys(localSections).forEach(key => {
+            if (key && key !== 'Poetry') { // Skip Poetry since it's merged with Writing
+                sections.add(key);
+            }
+        });
+    } catch (error) {
+        console.log('Could not load localStorage sectionContent');
+    }
+
+    // Check PDFs for sections
+    try {
+        let allPDFs = [];
+        // Check localStorage
+        const localPDFs = JSON.parse(localStorage.getItem('pdfs') || '[]');
+        allPDFs = [...localPDFs];
+        // Check JSON file
+        try {
+            const pdfResponse = await fetch('pdfs.json');
+            if (pdfResponse.ok) {
+                const jsonPDFs = await pdfResponse.json();
+                allPDFs = [...allPDFs, ...jsonPDFs];
+            }
+        } catch (error) {}
+        
+        allPDFs.forEach(pdf => {
+            if (pdf.section && pdf.section !== 'Poetry') {
+                sections.add(pdf.section);
+            }
+        });
+    } catch (error) {
+        console.log('Could not load PDFs');
+    }
+
+    // Check custom sections from localStorage
+    try {
+        const customSections = JSON.parse(localStorage.getItem('customSections') || '[]');
+        customSections.forEach(section => {
+            if (section.name) {
+                sections.add(section.name);
+            }
+        });
+    } catch (error) {
+        console.log('Could not load custom sections');
+    }
+
+    // Build section map with URLs
+    const sectionMap = new Map();
+
+    // Add system sections
+    systemSections.forEach(section => {
+        sectionMap.set(section.name, section);
+    });
+
+    // Add standard sections (always show these)
+    standardSections.forEach(section => {
+        sectionMap.set(section.name, section);
+    });
+
+    // Add custom sections
+    try {
+        const customSections = JSON.parse(localStorage.getItem('customSections') || '[]');
+        customSections.forEach(section => {
+            if (section.name && sections.has(section.name)) {
+                sectionMap.set(section.name, {
+                    name: section.name,
+                    url: section.url
+                });
+            }
+        });
+    } catch (error) {}
+
+    // Add any discovered sections that aren't mapped yet (generate URL from name)
+    sections.forEach(sectionName => {
+        if (!sectionMap.has(sectionName)) {
+            // Generate URL from section name: convert to lowercase, replace spaces with hyphens
+            const url = sectionName.toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9-]/g, '') + '.html';
+            sectionMap.set(sectionName, {
+                name: sectionName,
+                url: url
+            });
+        }
+    });
+
+    // Define display order (appearance order in nav)
+    const displayOrder = [
+        'Home',
+        'About',
+        'Notes',
+        'Writing',
+        'Math',
+        'Reading List',
+        'Resume',
+        'Game'
+    ];
+
+    // Sort sections: first by display order, then alphabetically
+    const sortedSections = Array.from(sectionMap.values()).sort((a, b) => {
+        const aIndex = displayOrder.indexOf(a.name);
+        const bIndex = displayOrder.indexOf(b.name);
+        
+        if (aIndex !== -1 && bIndex !== -1) {
+            return aIndex - bIndex;
+        }
+        if (aIndex !== -1) return -1;
+        if (bIndex !== -1) return 1;
+        return a.name.localeCompare(b.name);
+    });
+
+    // Clear existing navigation (except Edit link)
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    navMenu.innerHTML = '';
+
+    // Add sorted sections
+    sortedSections.forEach(section => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = section.url;
+        a.className = 'nav-link';
+        a.textContent = section.displayName || section.name;
+        
+        // Set active if current page
+        if (section.url === currentPage || (currentPage === '' && section.url === 'index.html')) {
+            a.classList.add('active');
+        }
+        
+        li.appendChild(a);
+        navMenu.appendChild(li);
+    });
+
+    // Always add Edit link at the end
+    const editLi = document.createElement('li');
+    const editA = document.createElement('a');
+    editA.href = 'edit.html';
+    editA.className = 'nav-link';
+    editA.textContent = 'Edit';
+    if (currentPage === 'edit.html') {
+        editA.classList.add('active');
+    }
+    editLi.appendChild(editA);
+    navMenu.appendChild(editLi);
+}
+
+// Make function available globally for refresh after edits
+window.buildDynamicNavigation = buildDynamicNavigation;
 
 // Search Functionality
 async function initializeSearch() {
