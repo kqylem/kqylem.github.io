@@ -60,22 +60,18 @@ async function loadSectionContentForPage(sectionName) {
     const container = document.getElementById('section-content') || document.querySelector('.section-content');
     if (!container) return;
 
+    let content = '';
+
     try {
         // Try to load from JSON file first
         const response = await fetch('section-content.json');
         if (response.ok) {
             const sections = await response.json();
-            const content = sections[sectionName] || '';
+            content = sections[sectionName] || '';
             
-            if (content) {
-                // Check if content contains HTML tags (like <img>)
-                if (content.includes('<') && content.includes('>')) {
-                    container.innerHTML = content;
-                } else {
-                    container.innerHTML = formatContent(content);
-                }
-                renderMathJax(container);
-                return;
+            // If loading Writing, also check for Poetry content and merge it
+            if (sectionName === 'Writing' && !content) {
+                content = sections['Poetry'] || '';
             }
         }
     } catch (error) {
@@ -83,8 +79,21 @@ async function loadSectionContentForPage(sectionName) {
     }
     
     // Fallback to localStorage
-    const sections = JSON.parse(localStorage.getItem('sectionContent') || '{}');
-    const content = sections[sectionName] || '';
+    if (!content) {
+        const sections = JSON.parse(localStorage.getItem('sectionContent') || '{}');
+        content = sections[sectionName] || '';
+        
+        // If loading Writing, also check for Poetry content and merge it
+        if (sectionName === 'Writing' && !content) {
+            content = sections['Poetry'] || '';
+            // If Poetry content exists in localStorage, migrate it to Writing
+            if (content) {
+                sections['Writing'] = content;
+                delete sections['Poetry'];
+                localStorage.setItem('sectionContent', JSON.stringify(sections));
+            }
+        }
+    }
     
     if (content) {
         // Check if content contains HTML tags (like <img>)
@@ -105,22 +114,18 @@ async function loadSectionContent(sectionName) {
     const container = document.getElementById('section-content') || document.querySelector('.section-content');
     if (!container) return;
 
+    let content = '';
+
     try {
         // Try to load from JSON file first
         const response = await fetch('section-content.json');
         if (response.ok) {
             const sections = await response.json();
-            const content = sections[sectionName] || '';
+            content = sections[sectionName] || '';
             
-            if (content) {
-                // Check if content contains HTML tags (like <img>)
-                if (content.includes('<') && content.includes('>')) {
-                    container.innerHTML = content;
-                } else {
-                    container.innerHTML = formatContent(content);
-                }
-                renderMathJax(container);
-                return;
+            // If loading Writing, also check for Poetry content and merge it
+            if (sectionName === 'Writing' && !content) {
+                content = sections['Poetry'] || '';
             }
         }
     } catch (error) {
@@ -128,8 +133,21 @@ async function loadSectionContent(sectionName) {
     }
     
     // Fallback to localStorage
-    const sections = JSON.parse(localStorage.getItem('sectionContent') || '{}');
-    const content = sections[sectionName] || '';
+    if (!content) {
+        const sections = JSON.parse(localStorage.getItem('sectionContent') || '{}');
+        content = sections[sectionName] || '';
+        
+        // If loading Writing, also check for Poetry content and merge it
+        if (sectionName === 'Writing' && !content) {
+            content = sections['Poetry'] || '';
+            // If Poetry content exists in localStorage, migrate it to Writing
+            if (content) {
+                sections['Writing'] = content;
+                delete sections['Poetry'];
+                localStorage.setItem('sectionContent', JSON.stringify(sections));
+            }
+        }
+    }
     
     if (content) {
         // Check if content contains HTML tags (like <img>)

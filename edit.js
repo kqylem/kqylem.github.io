@@ -628,6 +628,18 @@ async function loadSectionContent(sectionName) {
     const sections = JSON.parse(localStorage.getItem('sectionContent') || '{}');
     content = sections[sectionName] || '';
     
+    // If loading Writing, also check for Poetry content and merge it
+    if (sectionName === 'Writing' && !content) {
+        content = sections['Poetry'] || '';
+        // If Poetry content exists, migrate it to Writing
+        if (content) {
+            saveSectionContent('Writing', content);
+            // Remove Poetry from localStorage
+            delete sections['Poetry'];
+            localStorage.setItem('sectionContent', JSON.stringify(sections));
+        }
+    }
+    
     // If not in localStorage, try to load from JSON file
     if (!content) {
         try {
@@ -635,6 +647,10 @@ async function loadSectionContent(sectionName) {
             if (response.ok) {
                 const jsonSections = await response.json();
                 content = jsonSections[sectionName] || '';
+                // If loading Writing, also check for Poetry in JSON
+                if (sectionName === 'Writing' && !content) {
+                    content = jsonSections['Poetry'] || '';
+                }
             }
         } catch (error) {
             console.log('Could not load section-content.json');
@@ -760,8 +776,8 @@ function generateSectionHTML(sectionName, content) {
                         <li><a href="index.html" class="nav-link">Home</a></li>
                         <li><a href="about.html" class="nav-link">About</a></li>
                         <li><a href="notes.html" class="nav-link">Notes</a></li>
-                        <li><a href="writing.html" class="nav-link">Writing</a></li>
-                        <li><a href="poetry.html" class="nav-link">Poetry</a></li>
+                        <li><a href="writing.html" class="nav-link">Writing & Poetry</a></li>
+                        <li><a href="math.html" class="nav-link">Math</a></li>
                         <li><a href="reading-list.html" class="nav-link">Reading List</a></li>
                         <li><a href="resume.html" class="nav-link">Resume</a></li>
                         <li><a href="pdfs.html" class="nav-link">PDFs</a></li>
