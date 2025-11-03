@@ -1,5 +1,222 @@
 [
   {
+    "id": 1762139583767,
+    "name": "Mary Ventura and the Ninth Kingdom",
+    "author": "Sylvia Plath",
+    "tags": [
+      "quick",
+      "whimsical"
+    ],
+    "complete": "Yes",
+    "date": "April 5, 2024",
+    "dateValue": "2024-04-06",
+    "timestamp": 1712361600000
+  },
+  {
+    "id": 1762139544844,
+    "name": "Fanny and Zooey",
+    "author": "J.D. Salinger",
+    "tags": [
+      "good"
+    ],
+    "complete": "No",
+    "date": "April 16, 2024",
+    "dateValue": "2024-04-17",
+    "timestamp": 1713312000000
+  },
+  {
+    "id": 1762139517628,
+    "name": "Siddhartha",
+    "author": "Herman Hesse",
+    "tags": [
+      "quick",
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "April 22, 2024",
+    "dateValue": "2024-04-23",
+    "timestamp": 1713830400000
+  },
+  {
+    "id": 1762139492395,
+    "name": "The Joke",
+    "author": "Milan Kundera",
+    "tags": [
+      "sad",
+      "beautiful"
+    ],
+    "complete": "Yes",
+    "date": "May 7, 2024",
+    "dateValue": "2024-05-08",
+    "timestamp": 1715126400000
+  },
+  {
+    "id": 1762139471603,
+    "name": "Stella Maris",
+    "author": "Cormac McCarthy",
+    "tags": [
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "May 21, 2024",
+    "dateValue": "2024-05-22",
+    "timestamp": 1716336000000
+  },
+  {
+    "id": 1762139439421,
+    "name": "Mating",
+    "author": "Norman Rush",
+    "tags": [
+      "bad"
+    ],
+    "complete": "No",
+    "date": "May 27, 2024",
+    "dateValue": "2024-05-28",
+    "timestamp": 1716854400000
+  },
+  {
+    "id": 1762139411342,
+    "name": "Exit West",
+    "author": "Mohsin Hamid",
+    "tags": [
+      "quick"
+    ],
+    "complete": "Yes",
+    "date": "June 3, 2024",
+    "dateValue": "2024-06-04",
+    "timestamp": 1717459200000
+  },
+  {
+    "id": 1762139378612,
+    "name": "Severance",
+    "author": "Ling Ma",
+    "tags": [
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "June 25, 2024",
+    "dateValue": "2024-06-26",
+    "timestamp": 1719360000000
+  },
+  {
+    "id": 1762139353964,
+    "name": "Grapes of Wrath",
+    "author": "John Steinbeck",
+    "tags": [
+      "dense",
+      "sad",
+      "loaded",
+      "beautiful"
+    ],
+    "complete": "Yes",
+    "date": "July 10, 2024",
+    "dateValue": "2024-07-11",
+    "timestamp": 1720656000000
+  },
+  {
+    "id": 1762139314875,
+    "name": "In Dubious Battle",
+    "author": "John Steinbeck",
+    "tags": [
+      "sad",
+      "beautiful",
+      "cozy"
+    ],
+    "complete": "Yes",
+    "date": "July 22, 2024",
+    "dateValue": "2024-07-23",
+    "timestamp": 1721692800000
+  },
+  {
+    "id": 1762139279915,
+    "name": "Kiss of the Spider-Woman",
+    "author": "Manuel Puig",
+    "tags": [
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "August 1, 2024",
+    "dateValue": "2024-08-02",
+    "timestamp": 1722556800000
+  },
+  {
+    "id": 1762139236919,
+    "name": "The Chrysalids",
+    "author": "John Wyndham",
+    "tags": [
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "August 12, 2024",
+    "dateValue": "2024-08-13",
+    "timestamp": 1723507200000
+  },
+  {
+    "id": 1762139203373,
+    "name": "Inseparable",
+    "author": "Simone de Beauvoir",
+    "tags": [
+      "beautiful",
+      "quick"
+    ],
+    "complete": "Yes",
+    "date": "August 14, 2024",
+    "dateValue": "2024-08-15",
+    "timestamp": 1723680000000
+  },
+  {
+    "id": 1762139175679,
+    "name": "The Lost Estate (Les Grand Meaulnes)",
+    "author": "Henri Alan-Fournier",
+    "tags": [
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "August 21, 2024",
+    "dateValue": "2024-08-22",
+    "timestamp": 1724284800000
+  },
+  {
+    "id": 1762139136390,
+    "name": "Fear and Loathing in Las Vegas",
+    "author": "Hunter S. Thompson",
+    "tags": [
+      "quick",
+      "humorous"
+    ],
+    "complete": "Yes",
+    "date": "August 27, 2024",
+    "dateValue": "2024-08-28",
+    "timestamp": 1724803200000
+  },
+  {
+    "id": 1762139097739,
+    "name": "All Men Are Mortal",
+    "author": "Simone de Beauvoir",
+    "tags": [
+      "beautiful",
+      "loaded"
+    ],
+    "complete": "Yes",
+    "date": "September 1, 2024",
+    "dateValue": "2024-09-02",
+    "timestamp": 1725235200000
+  },
+  {
+    "id": 1762139057574,
+    "name": "Moby Dick",
+    "author": "Herman Melville",
+    "tags": [
+      "good",
+      "humorous",
+      "whimsical"
+    ],
+    "complete": "No",
+    "date": "September 23, 2024",
+    "dateValue": "2024-09-24",
+    "timestamp": 1727136000000
+  },
+  {
     "id": 1761979887189,
     "name": "Life for Sale",
     "author": "Yukio Mishima",
