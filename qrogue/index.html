@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winerunner - Web Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-header">
+            <h1>Winerunner</h1>
+            <div id="status-bar">
+                <span id="health">HP: 100/100</span>
+                <span id="position">Position: (0, 0)</span>
+                <span id="turns">Turns: 0</span>
+            </div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div id="game-footer">
+            <div id="message-log">
+                <p>Welcome to Winerunner! Use arrow keys or WASD to move.</p>
+            </div>
+            <div id="controls">
+                <p><strong>Controls:</strong> WASD/Arrows=Move | G=Pickup | L=Look | I=Inventory | B=Body Status | Space=Wait/Attack | ESC=Exit | ?=Help</p>
+            </div>
+        </div>
+    </div>
+    <script src="body_system.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
+
