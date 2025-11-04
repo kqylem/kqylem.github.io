@@ -1,0 +1,15 @@
+# Core game dependencies
+pygame>=2.5.0
+numpy>=1.21.0
+
+# OpenGL rendering (optional - fallback to pygame if not available)
+moderngl>=5.8.0
+
+# Image processing for font atlas
+Pillow>=9.0.0
+
+# Standard library modules used (included with Python)
+# - sys, os, importlib
+# - json, random, math, time
+# - typing, enum, dataclasses
+# - threading, multiprocessing
