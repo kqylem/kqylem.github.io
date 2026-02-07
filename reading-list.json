@@ -451,6 +451,22 @@
     ],
     "complete": "Yes",
     "date": "October 21, 2025"
+  },
+  {
+    "id": 1770494409970,
+    "name": "Bleeding Edge",
+    "author": "Thomas Pynchon",
+    "tags": [
+      "dense",
+      "loaded",
+      "good"
+    ],
+    "complete": "Yes",
+    "date": "January 31, 2026",
+    "dateValue": "2026-02-01",
+    "timestamp": 1769904000000
   }
 ]
+
+
 
