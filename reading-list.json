@@ -504,6 +504,32 @@
     "date": "April 8, 2026",
     "dateValue": "2026-04-09",
     "timestamp": 1775692800000
+  },
+  {
+    "id": 1778788690599,
+    "name": "Death of a Salesman",
+    "author": "Arthur Miller",
+    "tags": [
+      "good",
+      "quick",
+      "sad"
+    ],
+    "complete": "Yes",
+    "date": "May 3, 2026",
+    "dateValue": "2026-05-04",
+    "timestamp": 1777852800000
+  },
+  {
+    "id": 1778788664558,
+    "name": "Choke",
+    "author": "Chuck Palahniuk",
+    "tags": [
+      "quick"
+    ],
+    "complete": "Yes",
+    "date": "April 21, 2026",
+    "dateValue": "2026-04-22",
+    "timestamp": 1776816000000
   }
 ]
 
